@@ -1,23 +1,12 @@
-import { StyleSheet, Text, View } from "react-native";
-import React from "react";
+import React from 'react';
+import { createStackNavigator } from '@react-navigation/stack';
+import LandingScreen from '../screens/LandingScreen';
+const Stack = createStackNavigator();
 
 export default function LandingStack() {
   return (
-    <View style={styles.container}>
-      <Text style={styles.h1}>test</Text>
-    </View>
+    <Stack.Navigator>
+      <Stack.Screen name="Landing" component={LandingScreen} />
+    </Stack.Navigator>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  h1: {
-    fontSize: 42,
-    fontWeight: "800",
-  },
-});
