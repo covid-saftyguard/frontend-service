@@ -1,5 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { Image, ScrollView, StyleSheet, Text, View } from "react-native";
+import { ScrollView, StyleSheet, Text, View } from "react-native";
+import SafetyTips from "../Components/SafetyTips";
+import Symptoms from "../Components/Symptoms";
+import Vaccines from "../Components/Vaccines";
 
 export default function Home() {
   return (
@@ -16,9 +19,9 @@ export default function Home() {
       </View>
       <View
         style={{
-          marginTop: 10,
+          marginTop: 20,
           borderBottomWidth: 1,
-          borderBottomColor: "#CECECE",
+          borderBottomColor: "#F2F2F2",
         }}
       />
       <View
@@ -26,7 +29,7 @@ export default function Home() {
           ...styles.container,
           marginLeft: 15,
           marginTop: 20,
-          backgroundColor: "#73DCE9",
+          backgroundColor: "#F8F8F8",
           height: 300,
           width: 400,
         }}
@@ -38,112 +41,37 @@ export default function Home() {
           ...styles.container,
           marginLeft: 15,
           marginTop: 20,
-          backgroundColor: "#73DCE9",
-          height: 300,
+          backgroundColor: "#F8F8F8",
+          height: 350,
           width: 400,
         }}
       >
         <Text
           style={{
-            marginTop: 10,
+            marginTop: 40,
             marginBottom: 20,
-            fontSize: 22,
-            fontWeight: "600",
+            fontSize: 30,
+            fontWeight: "800",
           }}
         >
           Vaccines Available
         </Text>
         {/* once api data is received, map through to create each view component below */}
-        <View
-          style={{
-            backgroundColor: "#548CD6",
-            padding: 20,
-            width: "100%",
-            borderRadius: 20,
-            marginBottom: 10,
-          }}
-        >
-          <Text style={{ ...styles.h3, color: "#fff", fontWeight: "500" }}>
-            Pfizer Vaccine
-          </Text>
-        </View>
-        <View
-          style={{
-            backgroundColor: "#548CD6",
-            padding: 20,
-            width: "100%",
-            borderRadius: 20,
-            marginBottom: 10,
-          }}
-        >
-          <Text style={{ ...styles.h3, color: "#fff", fontWeight: "500" }}>
-            Moderna Vaccine
-          </Text>
-        </View>
-        <View
-          style={{
-            backgroundColor: "#548CD6",
-            padding: 20,
-            width: "100%",
-            borderRadius: 20,
-            marginBottom: 10,
-          }}
-        >
-          <Text style={{ ...styles.h3, color: "#fff", fontWeight: "500" }}>
-            Johnson & Johnson Vaccine
-          </Text>
-        </View>
+        <Vaccines />
       </View>
       <View style={{ marginLeft: 15, marginTop: 25, marginBottom: 15 }}>
         <Text style={{ ...styles.h1, fontSize: 30 }}>Symptoms</Text>
       </View>
       <View style={{ flexDirection: "row", flexWrap: "wrap" }}>
-        <ScrollView horizontal>
-          <View
-            style={{
-              padding: 40,
-              backgroundColor: "#F8F8F8",
-              width: 300,
-              borderRadius: 20,
-              marginLeft: 15,
-            }}
-          >
-            <Image />
-            <Text
-              style={{
-                color: "#548CD6",
-                fontWeight: "800",
-                fontSize: 18,
-                marginBottom: 10,
-              }}
-            >
-              High Fever
-            </Text>
-            <Text>Lorem ipsum lorem ipsum</Text>
-          </View>
-          <View
-            style={{
-              padding: 40,
-              backgroundColor: "#F8F8F8",
-              width: 300,
-              borderRadius: 20,
-              marginLeft: 15,
-            }}
-          >
-            <Image />
-            <Text
-              style={{
-                color: "#548CD6",
-                fontWeight: "800",
-                fontSize: 18,
-                marginBottom: 10,
-              }}
-            >
-              Dry Cough
-            </Text>
-            <Text>Lorem ipsum lorem ipsum</Text>
-          </View>
-        </ScrollView>
+        <Symptoms />
+      </View>
+      <View style={{ marginLeft: 15, marginTop: 25, marginBottom: 15 }}>
+        <Text style={{ ...styles.h1, fontSize: 30 }}>
+          Safety Tips / Prevention
+        </Text>
+      </View>
+      <View style={{ flexDirection: "row", flexWrap: "wrap" }}>
+        <SafetyTips />
       </View>
     </ScrollView>
   );
@@ -151,20 +79,18 @@ export default function Home() {
 
 const styles = StyleSheet.create({
   container: {
-    // borderColor: "black",
-    // borderWidth: 1.5,
     marginTop: 120,
     width: 180,
     height: 130,
     borderRadius: 40,
     padding: 20,
-    backgroundColor: "#ff9999",
+    backgroundColor: "#FF4B4B",
     alignItems: "center",
     justifyContent: "center",
   },
   h1: {
     fontSize: 42,
-    fontWeight: "800",
+    fontWeight: "900",
   },
   h3: {
     fontSize: 22,
