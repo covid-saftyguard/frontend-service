@@ -1,10 +1,39 @@
-import React from 'react';
-import { TextInput, View, StyleSheet } from 'react-native';
+import React, { useState } from 'react';
+import firebase from 'firebase';
+import {
+  TextInput,
+  TouchableOpacity,
+  Text,
+  View,
+  StyleSheet,
+} from 'react-native';
 
 export default function Login() {
+  // const [email, ]
+
   return (
     <View style={styles.container}>
-      <TextInput style={styles.input} />
+      <TextInput placeholder="username" style={styles.input} />
+      <TextInput placeholder="password" style={styles.input} />
+      <TouchableOpacity
+        onPress={() => {
+          // console.log('Stop clicking me');
+          // firebase
+          //   .auth()
+          //   .signInWithEmailAndPassword(email, password)
+          //   .then((userCredential) => {
+          //     // Signed in
+          //     var user = userCredential.user;
+          //     // ...
+          //   })
+          //   .catch((error) => {
+          //     var errorCode = error.code;
+          //     var errorMessage = error.message;
+          //   });
+        }}
+      >
+        <Text>Submit</Text>
+      </TouchableOpacity>
     </View>
   );
 }
@@ -17,7 +46,7 @@ const styles = StyleSheet.create({
   },
   input: {
     height: 40,
-    margin: 100,
+    marginBottom: 20,
     width: 310,
     borderWidth: 1,
   },
