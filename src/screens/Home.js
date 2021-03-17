@@ -10,7 +10,7 @@ export default function Home() {
       <View style={{ justifyContent: "space-around", flexDirection: "row" }}>
         <View style={styles.container}>
           <Text style={styles.h3}>Cases</Text>
-          <Text style={styles.h1}>123</Text>
+          <Text style={styles.h1}>1.8M</Text>
         </View>
         <View style={styles.container}>
           <Text style={styles.h3}>Vaccines</Text>
