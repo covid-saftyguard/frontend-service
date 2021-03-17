@@ -97,52 +97,54 @@ export default function Home() {
       <View style={{ marginLeft: 15, marginTop: 25, marginBottom: 15 }}>
         <Text style={{ ...styles.h1, fontSize: 30 }}>Symptoms</Text>
       </View>
-      <ScrollView horizontal="true">
-        <View
-          style={{
-            padding: 40,
-            backgroundColor: "#F8F8F8",
-            width: 300,
-            borderRadius: 20,
-            marginLeft: 15,
-          }}
-        >
-          <Image />
-          <Text
+      <View style={{ flexDirection: "row", flexWrap: "wrap" }}>
+        <ScrollView horizontal>
+          <View
             style={{
-              color: "#548CD6",
-              fontWeight: "800",
-              fontSize: 18,
-              marginBottom: 10,
+              padding: 40,
+              backgroundColor: "#F8F8F8",
+              width: 300,
+              borderRadius: 20,
+              marginLeft: 15,
             }}
           >
-            High Fever
-          </Text>
-          <Text>Lorem ipsum lorem ipsum</Text>
-        </View>
-        <View
-          style={{
-            padding: 40,
-            backgroundColor: "#F8F8F8",
-            width: 300,
-            borderRadius: 20,
-            marginLeft: 15,
-          }}
-        >
-          <Image />
-          <Text
+            <Image />
+            <Text
+              style={{
+                color: "#548CD6",
+                fontWeight: "800",
+                fontSize: 18,
+                marginBottom: 10,
+              }}
+            >
+              High Fever
+            </Text>
+            <Text>Lorem ipsum lorem ipsum</Text>
+          </View>
+          <View
             style={{
-              color: "#548CD6",
-              fontWeight: "800",
-              fontSize: 18,
-              marginBottom: 10,
+              padding: 40,
+              backgroundColor: "#F8F8F8",
+              width: 300,
+              borderRadius: 20,
+              marginLeft: 15,
             }}
           >
-            Dry Cough
-          </Text>
-          <Text>Lorem ipsum lorem ipsum</Text>
-        </View>
-      </ScrollView>
+            <Image />
+            <Text
+              style={{
+                color: "#548CD6",
+                fontWeight: "800",
+                fontSize: 18,
+                marginBottom: 10,
+              }}
+            >
+              Dry Cough
+            </Text>
+            <Text>Lorem ipsum lorem ipsum</Text>
+          </View>
+        </ScrollView>
+      </View>
     </ScrollView>
   );
 }
