@@ -1,30 +1,30 @@
-import React, { useEffect, useState } from "react";
-import { ScrollView, StyleSheet, Text, View } from "react-native";
-import SafetyTips from "../Components/SafetyTips";
-import Symptoms from "../Components/Symptoms";
-import Vaccines from "../Components/Vaccines";
+import React, { useEffect, useState } from 'react';
+import { ScrollView, StyleSheet, Text, View } from 'react-native';
+import SafetyTips from '../Components/SafetyTips';
+import Symptoms from '../Components/Symptoms';
+import Vaccines from '../Components/Vaccines';
 
 export default function Home() {
   const [api, setApi] = useState([]);
 
   useEffect(() => {
-    fetch("https://corona.lmao.ninja/v2/states?sort=&yesterday=")
+    fetch('https://corona.lmao.ninja/v2/states?sort=&yesterday=')
       .then((r) => r.json())
       .then((data) => {
-        console.log("API DATA:", data);
+        console.log('API DATA:', data);
         setApi(data);
       });
   }, []);
 
-  const cases = <Text style={styles.h1}>{api[0]["cases"]}</Text>;
-  console.log("Cases length:", cases.toString().length);
+  // const cases = <Text style={styles.h1}>{api[0]["cases"]}</Text>;
+  // console.log('Cases length:', cases.toString().length);
 
   return (
     <ScrollView>
-      <View style={{ justifyContent: "space-around", flexDirection: "row" }}>
+      <View style={{ justifyContent: 'space-around', flexDirection: 'row' }}>
         <View style={styles.container}>
           <Text style={styles.h3}>Cases</Text>
-          {cases}
+          {/* {cases} */}
         </View>
         <View style={styles.container}>
           <Text style={styles.h3}>Vaccines</Text>
@@ -35,7 +35,7 @@ export default function Home() {
         style={{
           marginTop: 20,
           borderBottomWidth: 1,
-          borderBottomColor: "#F2F2F2",
+          borderBottomColor: '#F2F2F2',
         }}
       />
       <View
@@ -43,7 +43,7 @@ export default function Home() {
           ...styles.container,
           marginLeft: 15,
           marginTop: 20,
-          backgroundColor: "#F8F8F8",
+          backgroundColor: '#F8F8F8',
           height: 300,
           width: 400,
         }}
@@ -55,7 +55,7 @@ export default function Home() {
           ...styles.container,
           marginLeft: 15,
           marginTop: 20,
-          backgroundColor: "#F8F8F8",
+          backgroundColor: '#F8F8F8',
           height: 350,
           width: 400,
         }}
@@ -65,7 +65,7 @@ export default function Home() {
             marginTop: 40,
             marginBottom: 20,
             fontSize: 30,
-            fontWeight: "800",
+            fontWeight: '800',
           }}
         >
           Vaccines Available
@@ -76,7 +76,7 @@ export default function Home() {
       <View style={{ marginLeft: 15, marginTop: 25, marginBottom: 15 }}>
         <Text style={{ ...styles.h1, fontSize: 30 }}>Symptoms</Text>
       </View>
-      <View style={{ flexDirection: "row", flexWrap: "wrap" }}>
+      <View style={{ flexDirection: 'row', flexWrap: 'wrap' }}>
         <Symptoms />
       </View>
       <View style={{ marginLeft: 15, marginTop: 25, marginBottom: 15 }}>
@@ -84,7 +84,7 @@ export default function Home() {
           Safety Tips / Prevention
         </Text>
       </View>
-      <View style={{ flexDirection: "row", flexWrap: "wrap" }}>
+      <View style={{ flexDirection: 'row', flexWrap: 'wrap' }}>
         <SafetyTips />
       </View>
     </ScrollView>
@@ -98,13 +98,13 @@ const styles = StyleSheet.create({
     height: 130,
     borderRadius: 40,
     padding: 20,
-    backgroundColor: "#FF4B4B",
-    alignItems: "center",
-    justifyContent: "center",
+    backgroundColor: '#FF4B4B',
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   h1: {
     fontSize: 42,
-    fontWeight: "900",
+    fontWeight: '900',
   },
   h3: {
     fontSize: 22,

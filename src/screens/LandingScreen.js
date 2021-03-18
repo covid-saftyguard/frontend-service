@@ -9,7 +9,7 @@ import covidFighter from '../../assets/fighting-covid-virus.jpg';
 export default function LandingScreen({ navigation, route }) {
   firebase.auth().onAuthStateChanged((user) => {
     if (user != null) {
-      navigation.navigate('Home');
+      navigation.replace('Home');
     } else {
       navigation.navigate('Landing');
     }
