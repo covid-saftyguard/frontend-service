@@ -42,6 +42,7 @@ const styles = StyleSheet.create({
     marginLeft: 15,
     marginRight: 10,
     marginBottom: 20,
+    alignItems: "center",
   },
   img: {
     marginBottom: 20,
