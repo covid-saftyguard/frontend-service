@@ -6,7 +6,12 @@ import LandingStack from './src/routes/LandingStack';
 import store from './src/redux/store';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 
+
+
 export default function App() {
+
+ 
+
   return (
     <Provider store={store}>
       <SafeAreaProvider>
@@ -15,5 +20,7 @@ export default function App() {
         </NavigationContainer>
       </SafeAreaProvider>
     </Provider>
+  
   );
+
 }
