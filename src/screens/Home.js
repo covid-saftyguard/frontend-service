@@ -5,7 +5,9 @@ import {
   StyleSheet,
   Text,
   View,
+  Dimensions,
 } from "react-native";
+import { LineChart } from "react-native-chart-kit";
 import SafetyTips from "../Components/SafetyTips";
 import Symptoms from "../Components/Symptoms";
 import Vaccines from "../Components/Vaccines";
@@ -50,12 +52,52 @@ export default function Home() {
           ...styles.container,
           marginLeft: 15,
           marginTop: 20,
+          marginBottom: 40,
           backgroundColor: "#F8F8F8",
           height: 300,
           width: 400,
         }}
       >
-        <Text>Line chart here once data is received</Text>
+        <Text style={{ marginTop: 60 }}>COVID-19 Cases ( 7 Months )</Text>
+        <LineChart
+          data={{
+            labels: ["Sep", "Oct", "Nov", "Dec", "Jan", "Feb", "Mar"],
+            datasets: [
+              {
+                data: [
+                  Math.random() * 100,
+                  Math.random() * 100,
+                  Math.random() * 100,
+                  Math.random() * 100,
+                  Math.random() * 100,
+                  Math.random() * 100,
+                ],
+              },
+            ],
+          }}
+          width={400}
+          height={300}
+          chartConfig={{
+            backgroundColor: "#F8F8F8",
+            backgroundGradientFrom: "#F8F8F8",
+            backgroundGradientTo: "#F8F8F8",
+            color: () => "black",
+            labelColor: () => "black",
+            style: {
+              borderRadius: 16,
+            },
+            propsForDots: {
+              r: "4",
+              strokeWidth: "2",
+              stroke: "#FF4B4B",
+            },
+          }}
+          bezier
+          style={{
+            marginVertical: 8,
+            borderRadius: 16,
+          }}
+        />
       </View>
       <View
         style={{
