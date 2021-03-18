@@ -1,5 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { ScrollView, StyleSheet, Text, View } from "react-native";
+import {
+  ActivityIndicator,
+  ScrollView,
+  StyleSheet,
+  Text,
+  View,
+} from "react-native";
 import SafetyTips from "../Components/SafetyTips";
 import Symptoms from "../Components/Symptoms";
 import Vaccines from "../Components/Vaccines";
@@ -16,15 +22,16 @@ export default function Home() {
       });
   }, []);
 
-  const cases = <Text style={styles.h1}>{api[0]["cases"]}</Text>;
-  console.log("Cases length:", cases.toString().length);
-
   return (
     <ScrollView>
       <View style={{ justifyContent: "space-around", flexDirection: "row" }}>
         <View style={styles.container}>
           <Text style={styles.h3}>Cases</Text>
-          {cases}
+          {api.length > 0 ? (
+            <Text style={styles.h1}>{api[0]["cases"]}</Text>
+          ) : (
+            <ActivityIndicator />
+          )}
         </View>
         <View style={styles.container}>
           <Text style={styles.h3}>Vaccines</Text>
