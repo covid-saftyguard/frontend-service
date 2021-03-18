@@ -5,12 +5,26 @@ import Symptoms from "../Components/Symptoms";
 import Vaccines from "../Components/Vaccines";
 
 export default function Home() {
+  const [api, setApi] = useState([]);
+
+  useEffect(() => {
+    fetch("https://corona.lmao.ninja/v2/states?sort=&yesterday=")
+      .then((r) => r.json())
+      .then((data) => {
+        console.log("API DATA:", data);
+        setApi(data);
+      });
+  }, []);
+
+  const cases = <Text style={styles.h1}>{api[0]["cases"]}</Text>;
+  console.log("Cases length:", cases.toString().length);
+
   return (
     <ScrollView>
       <View style={{ justifyContent: "space-around", flexDirection: "row" }}>
         <View style={styles.container}>
           <Text style={styles.h3}>Cases</Text>
-          <Text style={styles.h1}>1.8M</Text>
+          {cases}
         </View>
         <View style={styles.container}>
           <Text style={styles.h3}>Vaccines</Text>
