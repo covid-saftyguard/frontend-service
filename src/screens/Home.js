@@ -12,8 +12,14 @@ import SafetyTips from "../Components/SafetyTips";
 import Symptoms from "../Components/Symptoms";
 import Vaccines from "../Components/Vaccines";
 
+function* yLabel() {
+  yield* [0, "500k", "2M", "5M", "10M"];
+}
+
 export default function Home() {
   const [api, setApi] = useState([]);
+
+  const yLabelIterator = yLabel();
 
   useEffect(() => {
     fetch("https://corona.lmao.ninja/v2/states?sort=&yesterday=")
@@ -77,6 +83,8 @@ export default function Home() {
           }}
           width={400}
           height={300}
+          formatYLabel={() => yLabelIterator.next().value}
+          // segments={4}
           chartConfig={{
             backgroundColor: "#F8F8F8",
             backgroundGradientFrom: "#F8F8F8",
