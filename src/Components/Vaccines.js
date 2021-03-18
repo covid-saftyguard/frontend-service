@@ -1,18 +1,18 @@
 import React from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
 
 export default function Vaccines() {
   return (
     <>
-      <View style={styles.vaccineBackground}>
+      <TouchableOpacity style={styles.vaccineBackground}>
         <Text style={{ ...styles.vaccineName }}>Pfizer Vaccine</Text>
-      </View>
-      <View style={styles.vaccineBackground}>
+      </TouchableOpacity>
+      <TouchableOpacity style={styles.vaccineBackground}>
         <Text style={{ ...styles.vaccineName }}>Moderna Vaccine</Text>
-      </View>
-      <View style={styles.vaccineBackground}>
+      </TouchableOpacity>
+      <TouchableOpacity style={styles.vaccineBackground}>
         <Text style={{ ...styles.vaccineName }}>Johnson & Johnson Vaccine</Text>
-      </View>
+      </TouchableOpacity>
     </>
   );
 }
