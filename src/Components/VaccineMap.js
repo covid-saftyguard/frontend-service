@@ -36,7 +36,7 @@ function VaccineMap() {
 
   const fetchVaccineLocations = () => {
     const token =
-      "eyJhbGciOiJSUzI1NiIsImtpZCI6IjRlMDBlOGZlNWYyYzg4Y2YwYzcwNDRmMzA3ZjdlNzM5Nzg4ZTRmMWUiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vY292aWQtc2FmZWd1YXJkLTAiLCJhdWQiOiJjb3ZpZC1zYWZlZ3VhcmQtMCIsImF1dGhfdGltZSI6MTYxNjEwMjcyNSwidXNlcl9pZCI6Ik1ib1BjTnVrWjRNRDk5VXhaT3VmcXc2Qzc3ejEiLCJzdWIiOiJNYm9QY051a1o0TUQ5OVV4Wk91ZnF3NkM3N3oxIiwiaWF0IjoxNjE2MTAyNzI1LCJleHAiOjE2MTYxMDYzMjUsImVtYWlsIjoiYWRtaW5AYWRtaW4uY29tIiwiZW1haWxfdmVyaWZpZWQiOmZhbHNlLCJmaXJlYmFzZSI6eyJpZGVudGl0aWVzIjp7ImVtYWlsIjpbImFkbWluQGFkbWluLmNvbSJdfSwic2lnbl9pbl9wcm92aWRlciI6InBhc3N3b3JkIn19.FvK2pMjw5FtmGCdLno79rq9yM1fF7883ag3eNhbVNOl1wdqtP69aUVZWBdnqsVvHrQeU5TIm_Zs9kUjn_Q4wpTGFu9kXbG8vxJhhTzhk6qJE-zqt-B_Yi4Yue7R9Ly21--3ULNPQOLwj5wCyMfJNYvsZeTgAvWhazPK7-3-dNymU5Lbr5aprVterMLOAaZvBZh8Stg0bpU-MpslrAPN1TI3W8OqsBklhoAraq2z0cktg-HUY_LK1y4-kEyPh0mHn56AxcDdb24uVz_zPJaSECpX3sYfXLzz1q1kL6VcRP-nc5JcR20NrFZAyvLhkfM9jWsKv_JfutSLwGI758T5IIw";
+      "eyJhbGciOiJSUzI1NiIsImtpZCI6IjRlMDBlOGZlNWYyYzg4Y2YwYzcwNDRmMzA3ZjdlNzM5Nzg4ZTRmMWUiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vY292aWQtc2FmZWd1YXJkLTAiLCJhdWQiOiJjb3ZpZC1zYWZlZ3VhcmQtMCIsImF1dGhfdGltZSI6MTYxNjEwODIwMywidXNlcl9pZCI6Ik1ib1BjTnVrWjRNRDk5VXhaT3VmcXc2Qzc3ejEiLCJzdWIiOiJNYm9QY051a1o0TUQ5OVV4Wk91ZnF3NkM3N3oxIiwiaWF0IjoxNjE2MTA4MjAzLCJleHAiOjE2MTYxMTE4MDMsImVtYWlsIjoiYWRtaW5AYWRtaW4uY29tIiwiZW1haWxfdmVyaWZpZWQiOmZhbHNlLCJmaXJlYmFzZSI6eyJpZGVudGl0aWVzIjp7ImVtYWlsIjpbImFkbWluQGFkbWluLmNvbSJdfSwic2lnbl9pbl9wcm92aWRlciI6InBhc3N3b3JkIn19.P1TVRpC-0uPz1lv6TMSJZF0VpcErNgdoBBgC97eEWZzebeSmfCCBZalMVRn05PPfJGcO-VoRQz1w5v2zhOxfXoTByh7P7LcHkir91giAIQp8R_t6nACv_qFzhMYfYH6TLKXmt4-dWsnjFvqgr2wfU21iDjF8ILf4CllRbUvyUJkjVBjCwOMZ6PQN5K9vcZHBS5tXC-aprznp-qzr9i9OY094uWfPEm-ttL57cwguJIhlAPfS2SUHE-Lwn4oyZkkTLKL0BJVCPmU5ot-Ul0X2ZMtTxf2YjabT0hk9QgE1mmh81J4so7FN0Rf_j6ZYAR_NcwQuFOugBpQv0Y0exxodzQ";
     fetch(
       `http://ec2-18-216-242-223.us-east-2.compute.amazonaws.com/api/vaccine/location?lat=${region.latitude}&lon=${region.longitude}`,
       {
@@ -112,12 +112,9 @@ function VaccineMap() {
         <View style={styles.sideEffectsContainer}>
           <Text style={styles.title}>Side Effects</Text>
           <View style={styles.sideEffects}>
-            <Text style={{ paddingRight: 20 }}>
-              {" "}
-              On the arm after the shot:{" "}
-            </Text>
             {/* <Text> Pain, Redness, Swelling</Text> */}
             <ScrollView nestedScrollEnabled={true}>
+              <Text>On the arm after the shot:</Text>
               <Unorderedlist>
                 <Text>Pain</Text>
               </Unorderedlist>
@@ -149,9 +146,6 @@ function VaccineMap() {
               </Unorderedlist>
             </ScrollView>
           </View>
-        </View>
-        <View style={styles.dosage}>
-          <Text>Recommend Dosage</Text>
         </View>
       </View>
     </ScrollView>
@@ -233,7 +227,7 @@ const styles = StyleSheet.create({
     borderColor: "pink",
     borderWidth: 1,
     width: "90%",
-    height: "30%",
+    height: "50%",
     borderStyle: "solid",
     margin: "3%",
     borderRadius: 10,
@@ -242,14 +236,10 @@ const styles = StyleSheet.create({
     display: "flex",
     justifyContent: "center",
     alignItems: "flex-start",
-    borderColor: "green",
-    borderWidth: 1,
     padding: 10,
     position: "absolute",
   },
   sideEffects: {
-    borderColor: "purple",
-    borderWidth: 1,
     // width: "90%",
     // height: "30%",
     display: "flex",
@@ -259,20 +249,20 @@ const styles = StyleSheet.create({
     flexDirection: "column",
     alignItems: "flex-end",
   },
-  dosage: {
-    display: "flex",
-    flexDirection: "row",
-    justifyContent: "center",
-    alignItems: "flex-start",
-    borderColor: "orange",
-    borderWidth: 1,
-    width: "90%",
-    height: Dimensions.get("screen").height * 0.3,
-    top: 1,
-    borderStyle: "solid",
-    margin: "3%",
-    borderRadius: 10,
-  },
+  // dosage: {
+  //   display: "flex",
+  //   flexDirection: "row",
+  //   justifyContent: "center",
+  //   alignItems: "flex-start",
+  //   borderColor: "orange",
+  //   borderWidth: 1,
+  //   width: "90%",
+  //   height: Dimensions.get("screen").height * 0.3,
+  //   top: 1,
+  //   borderStyle: "solid",
+  //   margin: "3%",
+  //   borderRadius: 10,
+  // },
 });
 
 export default VaccineMap;
