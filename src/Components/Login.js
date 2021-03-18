@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import firebase from 'firebase';
 import {
   TextInput,
   TouchableOpacity,
@@ -15,23 +14,7 @@ export default function Login() {
     <View style={styles.container}>
       <TextInput placeholder="username" style={styles.input} />
       <TextInput placeholder="password" style={styles.input} />
-      <TouchableOpacity
-        onPress={() => {
-          // console.log('Stop clicking me');
-          // firebase
-          //   .auth()
-          //   .signInWithEmailAndPassword(email, password)
-          //   .then((userCredential) => {
-          //     // Signed in
-          //     var user = userCredential.user;
-          //     // ...
-          //   })
-          //   .catch((error) => {
-          //     var errorCode = error.code;
-          //     var errorMessage = error.message;
-          //   });
-        }}
-      >
+      <TouchableOpacity onPress={() => {}}>
         <Text>Submit</Text>
       </TouchableOpacity>
     </View>

@@ -2,43 +2,50 @@ import React from 'react';
 import firebase from 'firebase';
 import * as Google from 'expo-google-app-auth';
 import { StyleSheet, Image, View, Text, TouchableOpacity } from 'react-native';
-// import { SafeAreaView } from 'react-native-safe-area-context';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { IOS_CLIENT_ID, ANDROID_CLIENT_ID } from '@env';
 import covidFighter from '../../assets/fighting-covid-virus.jpg';
 
-var provider = new firebase.auth.GoogleAuthProvider();
-
-async function signInWithGoogleAsync() {
-  try {
-    const result = await Google.logInAsync({
-      androidClientId: ANDROID_CLIENT_ID,
-      iosClientId: IOS_CLIENT_ID,
-      scopes: ['profile', 'email'],
-    });
-
-    if (result.type === 'success') {
-      console.log(result);
-    } else {
-      return { cancelled: true };
-    }
-  } catch (e) {
-    return { error: true };
-  }
-}
-
 export default function LandingScreen({ navigation, route }) {
-  const signInWithPopup = () => {
-    firebase
-      .auth()
-      .signInWithRedirect(provider)
-      .then((result) => {
-        console.log(result);
-      })
-      .catch((error) => {
-        console.log('Error:', error);
-      });
-  };
+  firebase.auth().onAuthStateChanged((user) => {
+    if (user != null) {
+      navigation.navigate('Home');
+    } else {
+      navigation.navigate('Landing');
+    }
+  });
 
+  async function signInWithGoogleAsync() {
+    try {
+      const result = await Google.logInAsync({
+        androidClientId: ANDROID_CLIENT_ID,
+        iosClientId: IOS_CLIENT_ID,
+        scopes: ['profile', 'email'],
+      });
+
+      if (result.type === 'success') {
+        // console.log(result);
+        const { idToken } = result;
+
+        const provider = new firebase.auth.GoogleAuthProvider();
+        const credential = provider.credential(idToken);
+
+        firebase
+          .auth()
+          .signInWithCredential(credential)
+          .then((data) => {
+            console.log('SUCCESS:', data);
+            navigation.navigate('Home');
+          })
+          .catch((error) => console.log('ERROR', error));
+        // console.log('CREDS', credential);
+      } else {
+        return { cancelled: true };
+      }
+    } catch (e) {
+      return { error: true };
+    }
+  }
   return (
     <View style={{ ...styles.container }}>
       <View
@@ -108,6 +115,7 @@ export default function LandingScreen({ navigation, route }) {
             onPress={() => {
               // console.log(provider);
               signInWithGoogleAsync();
+              // googleSignin();
             }}
           >
             <Text
