@@ -15,7 +15,7 @@ import Unorderedlist from "react-native-unordered-list";
 import armInjection from "../../assets/arm-injection.png";
 
 function VaccineMap() {
-  const [location, setLocation] = useState(null);
+  const [location, setLocation] = useState([]);
   const [region, setRegion] = useState({
     latitude: 0,
     longitude: 0,
@@ -37,27 +37,34 @@ function VaccineMap() {
     fetchVaccineLocations();
   }, []);
 
-  const fetchVaccineLocations = async () => {
+  const fetchVaccineLocations = () => {
     // const token = await AsyncStorage.getItem("token");
-    const token =
-      "eyJhbGciOiJSUzI1NiIsImtpZCI6IjRlMDBlOGZlNWYyYzg4Y2YwYzcwNDRmMzA3ZjdlNzM5Nzg4ZTRmMWUiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vY292aWQtc2FmZWd1YXJkLTAiLCJhdWQiOiJjb3ZpZC1zYWZlZ3VhcmQtMCIsImF1dGhfdGltZSI6MTYxNjE2NDI1MiwidXNlcl9pZCI6Ik1ib1BjTnVrWjRNRDk5VXhaT3VmcXc2Qzc3ejEiLCJzdWIiOiJNYm9QY051a1o0TUQ5OVV4Wk91ZnF3NkM3N3oxIiwiaWF0IjoxNjE2MTY0MjUyLCJleHAiOjE2MTYxNjc4NTIsImVtYWlsIjoiYWRtaW5AYWRtaW4uY29tIiwiZW1haWxfdmVyaWZpZWQiOmZhbHNlLCJmaXJlYmFzZSI6eyJpZGVudGl0aWVzIjp7ImVtYWlsIjpbImFkbWluQGFkbWluLmNvbSJdfSwic2lnbl9pbl9wcm92aWRlciI6InBhc3N3b3JkIn19.QMDEjdNPsMj_6EZEBlrOwbmrm99r8-dyVE3JtJAqKKok0TrMkYZeSsgP2_w7CvjD_DEbios7vGj9ucMRxkOaxLd9vr3arlkQ3nTaHXQborypJgEw_I4rFeJUnAVaqY_jBshCr_wzmEddwhXkvvaqH_I0ev6lP9imFTKcq8myYBJoqARGzqNbgGykwPpb_lJ8HrjKyQoX9_tVNNQ27QJZA7snu8s4n1kFrgYQw86G92M41BtC26Y435C_5BwguZahRqi9Rkl0ZHX5n-REvSrKv35K1hzWin9XqruIrCL-ZCiUfEgey56qv2NcDgQglYgOnPxdVRu65E3uJvMEs4ANfw";
-    console.log("this is the token", token);
+    // const token =
+    //   "eyJhbGciOiJSUzI1NiIsImtpZCI6IjRlMDBlOGZlNWYyYzg4Y2YwYzcwNDRmMzA3ZjdlNzM5Nzg4ZTRmMWUiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vY292aWQtc2FmZWd1YXJkLTAiLCJhdWQiOiJjb3ZpZC1zYWZlZ3VhcmQtMCIsImF1dGhfdGltZSI6MTYxNjE2NTUxOCwidXNlcl9pZCI6Ik1ib1BjTnVrWjRNRDk5VXhaT3VmcXc2Qzc3ejEiLCJzdWIiOiJNYm9QY051a1o0TUQ5OVV4Wk91ZnF3NkM3N3oxIiwiaWF0IjoxNjE2MTY1NTE4LCJleHAiOjE2MTYxNjkxMTgsImVtYWlsIjoiYWRtaW5AYWRtaW4uY29tIiwiZW1haWxfdmVyaWZpZWQiOmZhbHNlLCJmaXJlYmFzZSI6eyJpZGVudGl0aWVzIjp7ImVtYWlsIjpbImFkbWluQGFkbWluLmNvbSJdfSwic2lnbl9pbl9wcm92aWRlciI6InBhc3N3b3JkIn19.oHDmP1-VFxc2LwxdYffuV-tBXT9xy1hFLXQglz_scdAwUSc6rQNbM-haoNetH3E2AcdkfJUKJP50g6XFLTb4ZfUIqlMCRildu-nOHWY9hWiZ-M-Khs-me1-wJTDz1uA6LyBK0HHqpjlZfOChP6CJHwSQ04ch8D1NDWoW40l86yuXaHY5Dn8Du65VqtfX_XFxifKyC1VtLdotiVMlofTjCevtS6xGwDomRHG9Owa1fgplJgq_cyYHiGUE2pqnbn-eZ7OdmesruhROkhBLx3_4HXj0uEmQny9-dUHlTXu08WbyfZeG6E99AAtWdGQt06OEZ2xqQs955VMeP7xkNYYypw";
+    // console.log("this is the token", token);
     fetch(
       `http://ec2-18-216-242-223.us-east-2.compute.amazonaws.com/api/vaccine/location?lat=${region.latitude}&lon=${region.longitude}`,
+      // "http://ec2-18-216-242-223.us-east-2.compute.amazonaws.com/api/vaccine/location?lat=37.785834&lon=-122.406417",
       {
         method: "GET",
         headers: {
           Accept: "application/json",
-          Authorization: `Bearer ${token}`,
+          // Authorization: `Bearer ${token}`,
         },
       }
     )
       .then((response) => response.json())
-      .then((data) => setLocation(data))
+      .then((data) => {
+        console.log("map data:", data);
+        setLocation(data);
+      })
       .catch((error) => {
         console.error(error);
       });
   };
+
+  console.log("latitude:", region.latitude);
+  console.log("longitude:", region.longitude);
 
   console.log("this is the data", location);
   // let vaccinePlaces = location.filter((place, index) => {
@@ -85,32 +92,33 @@ function VaccineMap() {
               // image={require("./assets/map_marker.png")}
             />
 
-            {location.map((place) => (
-              <Marker
-                key={place.id}
-                coordinate={{ latitude: place.lat, longitude: place.long }}
-                image={require("./assets/map_marker.png")}
-              >
-                <Callout tooltip>
-                  <View>
-                    <View style={styles.bubble}>
-                      <Text style={styles.name}>{place.name}</Text>
-                      <Text style={styles.name}>{place.address1}</Text>
-                      <Text style={styles.name}>
-                        {place.city}, {place.state} {place.zip}{" "}
-                      </Text>
-                      <Text style={styles.name}>{place.phone}</Text>
-                      <Text style={styles.name}>
-                        {" "}
-                        vaccines in stock?: {place.in_stock ? "yes" : "no"}
-                      </Text>
+            {location &&
+              location.map((place) => (
+                <Marker
+                  key={place.id}
+                  coordinate={{ latitude: place.lat, longitude: place.long }}
+                  image={require("./assets/map_marker.png")}
+                >
+                  <Callout tooltip>
+                    <View>
+                      <View style={styles.bubble}>
+                        <Text style={styles.name}>{place.name}</Text>
+                        <Text style={styles.name}>{place.address1}</Text>
+                        <Text style={styles.name}>
+                          {place.city}, {place.state} {place.zip}{" "}
+                        </Text>
+                        <Text style={styles.name}>{place.phone}</Text>
+                        <Text style={styles.name}>
+                          {" "}
+                          vaccines in stock?: {place.in_stock ? "yes" : "no"}
+                        </Text>
+                      </View>
+                      <View style={styles.arrowBorder} />
+                      <View style={styles.arrow} />
                     </View>
-                    <View style={styles.arrowBorder} />
-                    <View style={styles.arrow} />
-                  </View>
-                </Callout>
-              </Marker>
-            ))}
+                  </Callout>
+                </Marker>
+              ))}
           </MapView>
         ) : (
           <ActivityIndicator />

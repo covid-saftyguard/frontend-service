@@ -37,17 +37,51 @@ export default function LandingScreen({ navigation, route }) {
 
         const provider = new firebase.auth.GoogleAuthProvider();
         const credential = provider.credential(idToken);
+        provider.addScope("maps");
+        provider.addScope("profile");
 
         firebase
           .auth()
           .signInWithCredential(credential)
           .then(async (data) => {
-            // const token = data.user.stsTokenManager.accessToken;
-            console.log("LOGGING STS:", data.user);
-            // await AsyncStorage.setItem("token", token);
+            // console.log("USER DATA", data.user);
+            const creds = data.credential;
+            console.log("credential:", creds);
+            const user = data.user;
+            console.log(user);
+            const provData = user.providerData;
+            console.log(provData);
+            const email = user.email;
+            console.log("email:", email);
+            const stsTokenManager = creds.oauthIdToken;
+            console.log("sts token:", stsTokenManager);
+            // const accessToken = stsTokenManager.accessToken;
+            // console.log("sts accessToken:", accessToken);
+            const token = data.credential.accessToken;
+            // console.log("TOKEN FRM LOG IN", token);
+            // console.log("LOGGING STS:", data.user);
+            await AsyncStorage.setItem("token", token);
+            let myToken;
+            do {
+              if (!myToken) {
+                myToken = await AsyncStorage.getItem("token");
+              } else {
+                navigation.replace("Home");
+              }
+            } while (true);
+
+            // const myToken = await AsyncStorage.getItem('token')
+            // while (true) {
+            //   if (!myToken) {
+            //     const myToken = await AsyncStorage.getItem('token')
+            //   } else {
+            //     navigation.replace("Home");
+            //   }
+            // }
+
+            // navigation.replace("Home");
             // console.log("token here:", token);
             // console.log("SUCCESS:", data);
-            navigation.replace("Home");
           })
           .catch((error) => console.log("ERROR", error));
         // console.log('CREDS', credential);

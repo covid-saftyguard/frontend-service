@@ -43,7 +43,7 @@ export default function Home({ navigation }) {
     fetch("https://corona.lmao.ninja/v2/states?sort=&yesterday=")
       .then((r) => r.json())
       .then((data) => {
-        console.log("API DATA:", data);
+        // console.log("API DATA:", data);
         setApi(data);
       });
   }, []);
