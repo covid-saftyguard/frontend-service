@@ -6,9 +6,11 @@ import {
   View,
   StyleSheet,
 } from 'react-native';
+import firebase from 'firebase';
 
 export default function Login() {
-  // const [email, ]
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
 
   return (
     <View style={styles.container}>

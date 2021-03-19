@@ -10,9 +10,9 @@ export default function LandingScreen({ navigation, route }) {
   firebase.auth().onAuthStateChanged((user) => {
     if (user != null) {
       navigation.replace('Home');
-    } else {
-      navigation.navigate('Landing');
-    }
+    } //else {
+    //   navigation.navigate('Landing');
+    // }
   });
 
   async function signInWithGoogleAsync() {
