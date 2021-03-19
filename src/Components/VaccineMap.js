@@ -6,11 +6,13 @@ import {
   ScrollView,
   Dimensions,
   ActivityIndicator,
+  Image,
 } from "react-native";
 import MapView, { AnimatedRegion, Marker, Callout } from "react-native-maps";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import vaccine_marker from "./assets/vaccine_marker.png";
 import Unorderedlist from "react-native-unordered-list";
+import armInjection from "../../assets/arm-injection.png";
 
 function VaccineMap() {
   const [location, setLocation] = useState(null);
@@ -36,7 +38,9 @@ function VaccineMap() {
   }, []);
 
   const fetchVaccineLocations = async () => {
-    const token = await AsyncStorage.getItem("token");
+    // const token = await AsyncStorage.getItem("token");
+    const token =
+      "eyJhbGciOiJSUzI1NiIsImtpZCI6IjRlMDBlOGZlNWYyYzg4Y2YwYzcwNDRmMzA3ZjdlNzM5Nzg4ZTRmMWUiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vY292aWQtc2FmZWd1YXJkLTAiLCJhdWQiOiJjb3ZpZC1zYWZlZ3VhcmQtMCIsImF1dGhfdGltZSI6MTYxNjEyNTU2MiwidXNlcl9pZCI6Ik1ib1BjTnVrWjRNRDk5VXhaT3VmcXc2Qzc3ejEiLCJzdWIiOiJNYm9QY051a1o0TUQ5OVV4Wk91ZnF3NkM3N3oxIiwiaWF0IjoxNjE2MTI1NTYyLCJleHAiOjE2MTYxMjkxNjIsImVtYWlsIjoiYWRtaW5AYWRtaW4uY29tIiwiZW1haWxfdmVyaWZpZWQiOmZhbHNlLCJmaXJlYmFzZSI6eyJpZGVudGl0aWVzIjp7ImVtYWlsIjpbImFkbWluQGFkbWluLmNvbSJdfSwic2lnbl9pbl9wcm92aWRlciI6InBhc3N3b3JkIn19.UGcqXFgfLT8-ah9yTrjGn-Xdk6vAR4QtI9G6cpKW9amNfEuvO_LgvHSdkqfXdu3FHq3m-_KdBlt095xZ2SL68trSt6qYCcwKcP_fGf4oX8q6Bj2IkMjHoHSNR-sFCJsVBwKKIrUpunw9jpGs0ZhD-fTOzUGs49gZ4AasKe5jKpPt_oKLcR6JvQwyeBFI2blmPWR1RjqMcTT-GZ2Cm1rxo_dMFxCHW8nxzIyIwVbPC7qh5vYzpllRBaYl7ezyZ5VUIQCZpYOPs5J6sT3WOg0_UaFMn8MfnbNGRWCnJ6EEQkjeclWElXoAtclHrBMtijKBtu-1ohWhKTDsOuDH6_ZKOw";
     console.log("this is the token", token);
     fetch(
       `http://ec2-18-216-242-223.us-east-2.compute.amazonaws.com/api/vaccine/location?lat=${region.latitude}&lon=${region.longitude}`,
@@ -63,6 +67,7 @@ function VaccineMap() {
   return (
     <ScrollView style={styles.scrollView}>
       <View style={styles.container}>
+        <Text style={{ ...styles.title, marginTop: -80 }}>Map</Text>
         {location ? (
           <MapView
             style={styles.map}
@@ -110,40 +115,66 @@ function VaccineMap() {
         ) : (
           <ActivityIndicator />
         )}
+        <Text style={styles.title}>Side Effects</Text>
         <View style={styles.sideEffectsContainer}>
-          <Text style={styles.title}>Side Effects</Text>
+          {/* <View style={{ flexDirection: "row" }}>
+            <Image style={styles.img} source={armInjection} />
+          </View> */}
           <View style={styles.sideEffects}>
             {/* <Text> Pain, Redness, Swelling</Text> */}
             <ScrollView nestedScrollEnabled={true}>
-              <Text>On the arm after the shot:</Text>
-              <Unorderedlist>
+              <Text style={styles.sideEffectsText}>
+                On the arm after the shot:
+              </Text>
+              <Unorderedlist style={styles.sideEffectsOL}>
                 <Text>Pain</Text>
               </Unorderedlist>
-              <Unorderedlist>
+              <Unorderedlist style={styles.sideEffectsOL}>
                 <Text>Redness</Text>
               </Unorderedlist>
-              <Unorderedlist>
+              <Unorderedlist style={styles.sideEffectsOL}>
                 <Text>Swelling</Text>
               </Unorderedlist>
-              <Text>Throughout the rest of your body:</Text>
+              {/* style solutions */}
+              <Text style={styles.sideEffectsText}>
+                To reduce pain and discomfort where you got the shot:
+              </Text>
+              <Unorderedlist style={styles.sideEffectsOL}>
+                <Text>Apply a clean, cool, wet washcloth over the area.</Text>
+              </Unorderedlist>
+              <Unorderedlist style={styles.sideEffectsOL}>
+                <Text>Use or exercise your arm.</Text>
+              </Unorderedlist>
+              <Text style={styles.sideEffectsText}>
+                Throughout the rest of your body:
+              </Text>
               {/* <Text>Tiredness, Headache, Muscle pain, Chills, Fever, Nausea</Text> */}
-              <Unorderedlist>
+              <Unorderedlist style={styles.sideEffectsOL}>
                 <Text>Tiredness</Text>
               </Unorderedlist>
-              <Unorderedlist>
+              <Unorderedlist style={styles.sideEffectsOL}>
                 <Text>Headache</Text>
               </Unorderedlist>
-              <Unorderedlist>
+              <Unorderedlist style={styles.sideEffectsOL}>
                 <Text>Muscle pain</Text>
               </Unorderedlist>
-              <Unorderedlist>
+              <Unorderedlist style={styles.sideEffectsOL}>
                 <Text>Chills</Text>
               </Unorderedlist>
-              <Unorderedlist>
+              <Unorderedlist style={styles.sideEffectsOL}>
                 <Text>Fever</Text>
               </Unorderedlist>
-              <Unorderedlist>
+              <Unorderedlist style={styles.sideEffectsOL}>
                 <Text>Nausea</Text>
+              </Unorderedlist>
+              <Text style={styles.sideEffectsText}>
+                To reduce discomfort from fever:
+              </Text>
+              <Unorderedlist style={styles.sideEffectsOL}>
+                <Text>Drink plenty of fluids.</Text>
+              </Unorderedlist>
+              <Unorderedlist style={styles.sideEffectsOL}>
+                <Text>Dress lightly.</Text>
               </Unorderedlist>
             </ScrollView>
           </View>
@@ -209,46 +240,64 @@ const styles = StyleSheet.create({
   },
   container: {
     marginTop: "15%",
-    marginBottom: "60%",
+    marginBottom: -100,
     // display: "flex",
     // backgroundColor: "blue",
     alignItems: "center",
     justifyContent: "center",
-    paddingTop: "10%",
+    // paddingTop: "10%",
   },
   map: {
-    width: 300,
-    height: 300,
+    marginTop: 10,
+    marginBottom: 30,
+    width: 400,
+    height: 350,
+    borderRadius: 40,
   },
   sideEffectsContainer: {
+    marginTop: 30,
     display: "flex",
-    flexDirection: "row",
+    // flexDirection: "row",
+    alignItems: "center",
     justifyContent: "center",
-    alignItems: "flex-start",
-    borderColor: "pink",
-    borderWidth: 1,
     width: "90%",
     height: "50%",
-    borderStyle: "solid",
     margin: "3%",
-    borderRadius: 10,
+    borderRadius: 40,
+    backgroundColor: "#F8F8F8",
   },
   title: {
     display: "flex",
     justifyContent: "center",
-    alignItems: "flex-start",
-    padding: 10,
-    position: "absolute",
+    // padding: 10,
+    // position: "absolute",
+    fontSize: 35,
+    fontWeight: "900",
   },
   sideEffects: {
     // width: "90%",
     // height: "30%",
-    display: "flex",
-    paddingTop: 50,
+    paddingTop: 20,
     paddingRight: 10,
     paddingLeft: 10,
     flexDirection: "column",
-    alignItems: "flex-end",
+  },
+  sideEffectsText: {
+    fontSize: 18,
+    marginBottom: 15,
+    marginTop: 20,
+    fontWeight: "600",
+  },
+  sideEffectsOL: {
+    marginLeft: 30,
+    fontSize: 25,
+    fontWeight: "500",
+  },
+  img: {
+    marginTop: 25,
+    height: 80,
+    width: 80,
+    borderRadius: 100,
   },
   // dosage: {
   //   display: "flex",

@@ -42,7 +42,7 @@ export const MainTabNavigator = () => (
         tabBarLabel: "",
         tabBarIcon: () => (
           <MaterialIcons
-            style={{ color: "blue", marginTop: 30, height: 40 }}
+            style={{ color: "#548CD6", marginTop: 30, height: 40 }}
             name="map"
             size={40}
           />
@@ -55,12 +55,12 @@ export const MainTabNavigator = () => (
 
 export default function LandingStack() {
   return (
-    <Stack.Navigator initialRouteName="Landing">
+    <Stack.Navigator headerMode="screen" initialRouteName="Landing">
       <Stack.Screen
         name="Landing"
         component={LandingScreen}
         options={{
-          // header: () => null,
+          header: () => null,
           title: null,
           headerStyle: { borderColor: "white" },
           cardStyle: { backgroundColor: "#fff" },

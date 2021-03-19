@@ -9,6 +9,7 @@ import {
   TouchableOpacity,
   ScrollView,
 } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { IOS_CLIENT_ID, ANDROID_CLIENT_ID } from "@env";
 import covidFighter from "../../assets/fighting-covid-virus.jpg";
@@ -40,13 +41,13 @@ export default function LandingScreen({ navigation, route }) {
         firebase
           .auth()
           .signInWithCredential(credential)
-          .then((data) => {
-            const token = data.user.stsTokenManager.accessToken;
-            console.log(data.user.stsTokenManager);
-            AsyncStorage.setItem("token", token);
-            console.log(token);
+          .then(async (data) => {
+            // const token = data.user.stsTokenManager.accessToken;
+            console.log("LOGGING STS:", data.user);
+            // await AsyncStorage.setItem("token", token);
+            // console.log("token here:", token);
             // console.log("SUCCESS:", data);
-            navigation.navigate("Home");
+            navigation.replace("Home");
           })
           .catch((error) => console.log("ERROR", error));
         // console.log('CREDS', credential);
@@ -59,91 +60,93 @@ export default function LandingScreen({ navigation, route }) {
   }
   return (
     <ScrollView>
-      <View style={{ ...styles.container }}>
-        <View
-          style={{
-            justifyContent: "center",
-            alignItems: "center",
-          }}
-        >
-          {/* Covid SafeGuard Title */}
-          <View>
-            <Text
-              style={{
-                fontSize: 40,
-                fontWeight: "900",
-                color: "#D83472",
-                marginTop: 42,
-                marginBottom: 70,
-              }}
-            >
-              COVID SafeGuard
-            </Text>
-          </View>
-          {/* Covid Fighter Image */}
-          <View style={{ flex: 2, marginBottom: 120 }}>
-            <Image style={styles.imageSize} source={covidFighter} />
-          </View>
-          {/* Login/Signup Buttons */}
+      <SafeAreaView>
+        <View style={{ ...styles.container }}>
           <View
             style={{
-              flex: 2,
-              borderColor: "purple",
+              justifyContent: "center",
+              alignItems: "center",
             }}
           >
-            <TouchableOpacity
-              style={styles.logInButton}
-              onPress={() => navigation.navigate("Login")}
-            >
+            {/* Covid SafeGuard Title */}
+            <View>
               <Text
-                style={[
-                  styles.whiteText,
-                  styles.h1,
-                  styles.centerText,
-                  styles.buttonText,
-                ]}
+                style={{
+                  fontSize: 40,
+                  fontWeight: "900",
+                  color: "#D83472",
+                  marginTop: 42,
+                  marginBottom: 70,
+                }}
               >
-                Login
+                COVID SafeGuard
               </Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              style={styles.signUpButton}
-              onPress={() => navigation.navigate("Signup")}
-            >
-              <Text
-                style={[
-                  styles.whiteText,
-                  styles.h1,
-                  styles.centerText,
-                  styles.buttonText,
-                ]}
-              >
-                Signup
-              </Text>
-            </TouchableOpacity>
-            {/* Google Sign In */}
-            <TouchableOpacity
-              style={styles.googleSigninButton}
-              onPress={() => {
-                // console.log(provider);
-                signInWithGoogleAsync();
-                // googleSignin();
+            </View>
+            {/* Covid Fighter Image */}
+            <View style={{ flex: 2, marginBottom: 50 }}>
+              <Image style={styles.imageSize} source={covidFighter} />
+            </View>
+            {/* Login/Signup Buttons */}
+            <View
+              style={{
+                flex: 2,
+                borderColor: "purple",
               }}
             >
-              <Text
-                style={[
-                  styles.whiteText,
-                  styles.h1,
-                  styles.centerText,
-                  styles.buttonText,
-                ]}
+              <TouchableOpacity
+                style={styles.logInButton}
+                onPress={() => navigation.navigate("Login")}
               >
-                Google Sign in
-              </Text>
-            </TouchableOpacity>
+                <Text
+                  style={[
+                    styles.whiteText,
+                    styles.h1,
+                    styles.centerText,
+                    styles.buttonText,
+                  ]}
+                >
+                  Login
+                </Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                style={styles.signUpButton}
+                onPress={() => navigation.navigate("Signup")}
+              >
+                <Text
+                  style={[
+                    styles.whiteText,
+                    styles.h1,
+                    styles.centerText,
+                    styles.buttonText,
+                  ]}
+                >
+                  Signup
+                </Text>
+              </TouchableOpacity>
+              {/* Google Sign In */}
+              <TouchableOpacity
+                style={styles.googleSigninButton}
+                onPress={() => {
+                  // console.log(provider);
+                  signInWithGoogleAsync();
+                  // googleSignin();
+                }}
+              >
+                <Text
+                  style={[
+                    styles.whiteText,
+                    styles.h1,
+                    styles.centerText,
+                    styles.buttonText,
+                  ]}
+                >
+                  Google Sign in
+                </Text>
+              </TouchableOpacity>
+            </View>
           </View>
         </View>
-      </View>
+      </SafeAreaView>
     </ScrollView>
   );
 }

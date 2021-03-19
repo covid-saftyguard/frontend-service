@@ -150,7 +150,6 @@ export default function Home({ navigation }) {
         >
           Vaccines Available
         </Text>
-        {/* once api data is received, map through to create each view component below */}
         <Vaccines />
       </View>
       <View style={{ marginLeft: 15, marginTop: 25, marginBottom: 15 }}>
