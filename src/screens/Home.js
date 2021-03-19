@@ -50,10 +50,10 @@ export default function Home({ navigation }) {
 
   return (
     <ScrollView>
+      <TouchableOpacity onPress={() => logOut()}>
+        <Text style={{ textAlign: "center" }}>Logout</Text>
+      </TouchableOpacity>
       <View style={{ justifyContent: "space-around", flexDirection: "row" }}>
-        <TouchableOpacity onPress={() => logOut()}>
-          <Text>Logout</Text>
-        </TouchableOpacity>
         <View style={styles.container}>
           <Text style={styles.h3}>Cases</Text>
           {api.length > 0 ? (
