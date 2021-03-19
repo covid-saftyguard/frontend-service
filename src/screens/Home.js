@@ -15,7 +15,7 @@ import Vaccines from "../Components/Vaccines";
 import firebase from "firebase";
 
 function* yLabel() {
-  yield* [0, "500k", "2M", "5M", "10M"];
+  yield* ["10M", "20M", "30M", "50M", "90M"];
 }
 
 export default function Home({ navigation }) {
@@ -87,17 +87,19 @@ export default function Home({ navigation }) {
       >
         <Text style={{ marginTop: 60 }}>COVID-19 Cases ( 7 Months )</Text>
         <LineChart
+          // using dummy data for demo purposes
           data={{
             labels: ["Sep", "Oct", "Nov", "Dec", "Jan", "Feb", "Mar"],
             datasets: [
               {
                 data: [
-                  Math.random() * 100,
-                  Math.random() * 100,
-                  Math.random() * 100,
-                  Math.random() * 100,
-                  Math.random() * 100,
-                  Math.random() * 100,
+                  90000000,
+                  80000000,
+                  79000000,
+                  80000000,
+                  70000000,
+                  80000000,
+                  60000000,
                 ],
               },
             ],
