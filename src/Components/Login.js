@@ -1,3 +1,4 @@
+import firebase from 'firebase';
 import React, { useState } from 'react';
 import {
   TextInput,
@@ -8,13 +9,43 @@ import {
 } from 'react-native';
 
 export default function Login() {
-  // const [email, ]
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
+  const signIn = () => {
+    doSignInUser(email, password);
+  };
+
+  const doSignInUser = (email, password) => {
+    firebase
+      .auth()
+      .signInWithEmailAndPassword(email, password)
+      .then((userCreds) => console.log(userCreds))
+      .catch((error) => console.log('SIGNIN ERROR:', error));
+  };
 
   return (
     <View style={styles.container}>
-      <TextInput placeholder="username" style={styles.input} />
-      <TextInput placeholder="password" style={styles.input} />
-      <TouchableOpacity onPress={() => {}}>
+      <TextInput
+        placeholder="Email"
+        keyboardType="email-address"
+        autoCapitalize="none"
+        onChangeText={(text) => setEmail(text)}
+        style={styles.input}
+      />
+      <TextInput
+        placeholder="Password"
+        textContentType="password"
+        secureTextEntry
+        autoCapitalize="none"
+        onChangeText={(text) => setPassword(text)}
+        style={styles.input}
+      />
+      <TouchableOpacity
+        onPress={() => {
+          signIn();
+        }}
+      >
         <Text>Submit</Text>
       </TouchableOpacity>
     </View>

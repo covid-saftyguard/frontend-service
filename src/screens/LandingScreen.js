@@ -1,6 +1,6 @@
-import React from "react";
-import firebase from "firebase";
-import * as Google from "expo-google-app-auth";
+import React from 'react';
+import * as Google from 'expo-google-app-auth';
+import firebase from 'firebase';
 import {
   StyleSheet,
   Image,
@@ -8,18 +8,18 @@ import {
   Text,
   TouchableOpacity,
   ScrollView,
-} from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
-import AsyncStorage from "@react-native-async-storage/async-storage";
-import { IOS_CLIENT_ID, ANDROID_CLIENT_ID } from "@env";
-import covidFighter from "../../assets/fighting-covid-virus.jpg";
+} from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { IOS_CLIENT_ID, ANDROID_CLIENT_ID } from '@env';
+import covidFighter from '../../assets/fighting-covid-virus.jpg';
 
 export default function LandingScreen({ navigation, route }) {
   firebase.auth().onAuthStateChanged((user) => {
     if (user != null) {
-      navigation.replace("Home");
+      navigation.replace('Home');
     } else {
-      navigation.navigate("Landing");
+      navigation.navigate('Landing');
     }
   });
 
@@ -28,10 +28,10 @@ export default function LandingScreen({ navigation, route }) {
       const result = await Google.logInAsync({
         androidClientId: ANDROID_CLIENT_ID,
         iosClientId: IOS_CLIENT_ID,
-        scopes: ["profile", "email"],
+        scopes: ['profile', 'email'],
       });
 
-      if (result.type === "success") {
+      if (result.type === 'success') {
         // console.log(result);
         const { idToken } = result;
 
@@ -43,13 +43,13 @@ export default function LandingScreen({ navigation, route }) {
           .signInWithCredential(credential)
           .then(async (data) => {
             // const token = data.user.stsTokenManager.accessToken;
-            console.log("LOGGING STS:", data.user);
+            console.log('LOGGING STS:', data.user);
             // await AsyncStorage.setItem("token", token);
             // console.log("token here:", token);
             // console.log("SUCCESS:", data);
-            navigation.replace("Home");
+            navigation.replace('Home');
           })
-          .catch((error) => console.log("ERROR", error));
+          .catch((error) => console.log('ERROR', error));
         // console.log('CREDS', credential);
       } else {
         return { cancelled: true };
@@ -64,8 +64,8 @@ export default function LandingScreen({ navigation, route }) {
         <View style={{ ...styles.container }}>
           <View
             style={{
-              justifyContent: "center",
-              alignItems: "center",
+              justifyContent: 'center',
+              alignItems: 'center',
             }}
           >
             {/* Covid SafeGuard Title */}
@@ -73,8 +73,8 @@ export default function LandingScreen({ navigation, route }) {
               <Text
                 style={{
                   fontSize: 40,
-                  fontWeight: "900",
-                  color: "#D83472",
+                  fontWeight: '900',
+                  color: '#D83472',
                   marginTop: 42,
                   marginBottom: 70,
                 }}
@@ -90,12 +90,12 @@ export default function LandingScreen({ navigation, route }) {
             <View
               style={{
                 flex: 2,
-                borderColor: "purple",
+                borderColor: 'purple',
               }}
             >
               <TouchableOpacity
                 style={styles.logInButton}
-                onPress={() => navigation.navigate("Login")}
+                onPress={() => navigation.navigate('Login')}
               >
                 <Text
                   style={[
@@ -110,7 +110,7 @@ export default function LandingScreen({ navigation, route }) {
               </TouchableOpacity>
               <TouchableOpacity
                 style={styles.signUpButton}
-                onPress={() => navigation.navigate("Signup")}
+                onPress={() => navigation.navigate('Signup')}
               >
                 <Text
                   style={[
@@ -154,8 +154,8 @@ export default function LandingScreen({ navigation, route }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   imageSize: {
     width: 400,
@@ -163,35 +163,36 @@ const styles = StyleSheet.create({
   },
   buttonText: {
     fontSize: 27,
-    fontWeight: "900",
+    fontWeight: '900',
   },
   logInButton: {
-    backgroundColor: "#9EBD53",
+    backgroundColor: '#9EBD53',
     padding: 15,
     width: 370,
     borderRadius: 20,
   },
   signUpButton: {
-    backgroundColor: "#D83472",
+    backgroundColor: '#D83472',
     marginTop: 15,
     padding: 15,
     width: 370,
     borderRadius: 20,
   },
   googleSigninButton: {
-    backgroundColor: "#4285F4",
+    backgroundColor: '#4285F4',
     marginTop: 15,
+    marginBottom: 15,
     padding: 15,
     width: 370,
     borderRadius: 20,
   },
   centerText: {
-    textAlign: "center",
+    textAlign: 'center',
   },
   h1: {
     fontSize: 20,
   },
   whiteText: {
-    color: "#fff",
+    color: '#fff',
   },
 });
