@@ -9,18 +9,18 @@ import Home from "../screens/Home";
 import { firebaseConfig } from "../../firebaseConfig";
 // import { GoogleSignin } from '@react-native-google-signin/google-signin';
 import firebase from "firebase";
-import VaccineMap from "./src/Components/VaccineMap";
+import VaccineMap from "../Components/VaccineMap";
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
 
-  if (!firebase.apps.length) {
-    firebase.initializeApp(firebaseConfig);
-  }
+if (!firebase.apps.length) {
+  firebase.initializeApp(firebaseConfig);
+}
 
 export const MainTabNavigator = () => (
   <Tab.Navigator>
-      <Tab.Screen name="VaccineMap" component={VaccineMap} options={{}} />
+    <Tab.Screen name="VaccineMap" component={VaccineMap} options={{}} />
     <Tab.Screen
       name="Home"
       component={Home}

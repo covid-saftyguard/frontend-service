@@ -6,20 +6,38 @@ import {
   Text,
   View,
   Dimensions,
+  TouchableOpacity,
 } from "react-native";
 import { LineChart } from "react-native-chart-kit";
 import SafetyTips from "../Components/SafetyTips";
 import Symptoms from "../Components/Symptoms";
 import Vaccines from "../Components/Vaccines";
+import firebase from "firebase";
 
 function* yLabel() {
   yield* [0, "500k", "2M", "5M", "10M"];
 }
 
-export default function Home() {
+export default function Home({ navigation }) {
   const [api, setApi] = useState([]);
 
   const yLabelIterator = yLabel();
+
+  const logOut = async () => {
+    try {
+      await firebase
+        .auth()
+        .signOut()
+        .then(() => {
+          navigation.replace("Landing");
+        })
+        .catch((error) => {
+          console.log("Error:", error);
+        });
+    } catch (e) {
+      console.log(e);
+    }
+  };
 
   useEffect(() => {
     fetch("https://corona.lmao.ninja/v2/states?sort=&yesterday=")
@@ -33,6 +51,9 @@ export default function Home() {
   return (
     <ScrollView>
       <View style={{ justifyContent: "space-around", flexDirection: "row" }}>
+        <TouchableOpacity onPress={() => logOut()}>
+          <Text>Logout</Text>
+        </TouchableOpacity>
         <View style={styles.container}>
           <Text style={styles.h3}>Cases</Text>
           {api.length > 0 ? (

@@ -8,6 +8,7 @@ import {
   ActivityIndicator,
 } from "react-native";
 import MapView, { AnimatedRegion, Marker, Callout } from "react-native-maps";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import vaccine_marker from "./assets/vaccine_marker.png";
 import Unorderedlist from "react-native-unordered-list";
 
@@ -35,8 +36,7 @@ function VaccineMap() {
   }, []);
 
   const fetchVaccineLocations = () => {
-    const token =
-      "eyJhbGciOiJSUzI1NiIsImtpZCI6IjRlMDBlOGZlNWYyYzg4Y2YwYzcwNDRmMzA3ZjdlNzM5Nzg4ZTRmMWUiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vY292aWQtc2FmZWd1YXJkLTAiLCJhdWQiOiJjb3ZpZC1zYWZlZ3VhcmQtMCIsImF1dGhfdGltZSI6MTYxNjEwODIwMywidXNlcl9pZCI6Ik1ib1BjTnVrWjRNRDk5VXhaT3VmcXc2Qzc3ejEiLCJzdWIiOiJNYm9QY051a1o0TUQ5OVV4Wk91ZnF3NkM3N3oxIiwiaWF0IjoxNjE2MTA4MjAzLCJleHAiOjE2MTYxMTE4MDMsImVtYWlsIjoiYWRtaW5AYWRtaW4uY29tIiwiZW1haWxfdmVyaWZpZWQiOmZhbHNlLCJmaXJlYmFzZSI6eyJpZGVudGl0aWVzIjp7ImVtYWlsIjpbImFkbWluQGFkbWluLmNvbSJdfSwic2lnbl9pbl9wcm92aWRlciI6InBhc3N3b3JkIn19.P1TVRpC-0uPz1lv6TMSJZF0VpcErNgdoBBgC97eEWZzebeSmfCCBZalMVRn05PPfJGcO-VoRQz1w5v2zhOxfXoTByh7P7LcHkir91giAIQp8R_t6nACv_qFzhMYfYH6TLKXmt4-dWsnjFvqgr2wfU21iDjF8ILf4CllRbUvyUJkjVBjCwOMZ6PQN5K9vcZHBS5tXC-aprznp-qzr9i9OY094uWfPEm-ttL57cwguJIhlAPfS2SUHE-Lwn4oyZkkTLKL0BJVCPmU5ot-Ul0X2ZMtTxf2YjabT0hk9QgE1mmh81J4so7FN0Rf_j6ZYAR_NcwQuFOugBpQv0Y0exxodzQ";
+    const token = AsyncStorage.getItem("token");
     fetch(
       `http://ec2-18-216-242-223.us-east-2.compute.amazonaws.com/api/vaccine/location?lat=${region.latitude}&lon=${region.longitude}`,
       {

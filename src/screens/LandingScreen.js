@@ -1,17 +1,24 @@
-import React from 'react';
-import firebase from 'firebase';
-import * as Google from 'expo-google-app-auth';
-import { StyleSheet, Image, View, Text, TouchableOpacity } from 'react-native';
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import { IOS_CLIENT_ID, ANDROID_CLIENT_ID } from '@env';
-import covidFighter from '../../assets/fighting-covid-virus.jpg';
+import React from "react";
+import firebase from "firebase";
+import * as Google from "expo-google-app-auth";
+import {
+  StyleSheet,
+  Image,
+  View,
+  Text,
+  TouchableOpacity,
+  ScrollView,
+} from "react-native";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { IOS_CLIENT_ID, ANDROID_CLIENT_ID } from "@env";
+import covidFighter from "../../assets/fighting-covid-virus.jpg";
 
 export default function LandingScreen({ navigation, route }) {
   firebase.auth().onAuthStateChanged((user) => {
     if (user != null) {
-      navigation.replace('Home');
+      navigation.replace("Home");
     } else {
-      navigation.navigate('Landing');
+      navigation.navigate("Landing");
     }
   });
 
@@ -20,10 +27,10 @@ export default function LandingScreen({ navigation, route }) {
       const result = await Google.logInAsync({
         androidClientId: ANDROID_CLIENT_ID,
         iosClientId: IOS_CLIENT_ID,
-        scopes: ['profile', 'email'],
+        scopes: ["profile", "email"],
       });
 
-      if (result.type === 'success') {
+      if (result.type === "success") {
         // console.log(result);
         const { idToken } = result;
 
@@ -34,10 +41,13 @@ export default function LandingScreen({ navigation, route }) {
           .auth()
           .signInWithCredential(credential)
           .then((data) => {
-            console.log('SUCCESS:', data);
-            navigation.navigate('Home');
+            const token = data.user.stsTokenManager.accessToken;
+            AsyncStorage.setItem("token", token);
+            console.log(token);
+            // console.log("SUCCESS:", data);
+            navigation.navigate("Home");
           })
-          .catch((error) => console.log('ERROR', error));
+          .catch((error) => console.log("ERROR", error));
         // console.log('CREDS', credential);
       } else {
         return { cancelled: true };
@@ -47,99 +57,101 @@ export default function LandingScreen({ navigation, route }) {
     }
   }
   return (
-    <View style={{ ...styles.container }}>
-      <View
-        style={{
-          justifyContent: 'center',
-          alignItems: 'center',
-        }}
-      >
-        {/* Covid SafeGuard Title */}
-        <View>
-          <Text
-            style={{
-              fontSize: 40,
-              fontWeight: '900',
-              color: '#D83472',
-              marginTop: 42,
-              marginBottom: 70,
-            }}
-          >
-            COVID SafeGuard
-          </Text>
-        </View>
-        {/* Covid Fighter Image */}
-        <View style={{ flex: 2, marginBottom: 120 }}>
-          <Image style={styles.imageSize} source={covidFighter} />
-        </View>
-        {/* Login/Signup Buttons */}
+    <ScrollView>
+      <View style={{ ...styles.container }}>
         <View
           style={{
-            flex: 2,
-            borderColor: 'purple',
+            justifyContent: "center",
+            alignItems: "center",
           }}
         >
-          <TouchableOpacity
-            style={styles.logInButton}
-            onPress={() => navigation.navigate('Login')}
-          >
+          {/* Covid SafeGuard Title */}
+          <View>
             <Text
-              style={[
-                styles.whiteText,
-                styles.h1,
-                styles.centerText,
-                styles.buttonText,
-              ]}
+              style={{
+                fontSize: 40,
+                fontWeight: "900",
+                color: "#D83472",
+                marginTop: 42,
+                marginBottom: 70,
+              }}
             >
-              Login
+              COVID SafeGuard
             </Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={styles.signUpButton}
-            onPress={() => navigation.navigate('Signup')}
-          >
-            <Text
-              style={[
-                styles.whiteText,
-                styles.h1,
-                styles.centerText,
-                styles.buttonText,
-              ]}
-            >
-              Signup
-            </Text>
-          </TouchableOpacity>
-          {/* Google Sign In */}
-          <TouchableOpacity
-            style={styles.googleSigninButton}
-            onPress={() => {
-              // console.log(provider);
-              signInWithGoogleAsync();
-              // googleSignin();
+          </View>
+          {/* Covid Fighter Image */}
+          <View style={{ flex: 2, marginBottom: 120 }}>
+            <Image style={styles.imageSize} source={covidFighter} />
+          </View>
+          {/* Login/Signup Buttons */}
+          <View
+            style={{
+              flex: 2,
+              borderColor: "purple",
             }}
           >
-            <Text
-              style={[
-                styles.whiteText,
-                styles.h1,
-                styles.centerText,
-                styles.buttonText,
-              ]}
+            <TouchableOpacity
+              style={styles.logInButton}
+              onPress={() => navigation.navigate("Login")}
             >
-              Google Sign in
-            </Text>
-          </TouchableOpacity>
+              <Text
+                style={[
+                  styles.whiteText,
+                  styles.h1,
+                  styles.centerText,
+                  styles.buttonText,
+                ]}
+              >
+                Login
+              </Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={styles.signUpButton}
+              onPress={() => navigation.navigate("Signup")}
+            >
+              <Text
+                style={[
+                  styles.whiteText,
+                  styles.h1,
+                  styles.centerText,
+                  styles.buttonText,
+                ]}
+              >
+                Signup
+              </Text>
+            </TouchableOpacity>
+            {/* Google Sign In */}
+            <TouchableOpacity
+              style={styles.googleSigninButton}
+              onPress={() => {
+                // console.log(provider);
+                signInWithGoogleAsync();
+                // googleSignin();
+              }}
+            >
+              <Text
+                style={[
+                  styles.whiteText,
+                  styles.h1,
+                  styles.centerText,
+                  styles.buttonText,
+                ]}
+              >
+                Google Sign in
+              </Text>
+            </TouchableOpacity>
+          </View>
         </View>
       </View>
-    </View>
+    </ScrollView>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
   },
   imageSize: {
     width: 400,
@@ -147,35 +159,35 @@ const styles = StyleSheet.create({
   },
   buttonText: {
     fontSize: 27,
-    fontWeight: '900',
+    fontWeight: "900",
   },
   logInButton: {
-    backgroundColor: '#9EBD53',
+    backgroundColor: "#9EBD53",
     padding: 15,
     width: 370,
     borderRadius: 20,
   },
   signUpButton: {
-    backgroundColor: '#D83472',
+    backgroundColor: "#D83472",
     marginTop: 15,
     padding: 15,
     width: 370,
     borderRadius: 20,
   },
   googleSigninButton: {
-    backgroundColor: '#4285F4',
+    backgroundColor: "#4285F4",
     marginTop: 15,
     padding: 15,
     width: 370,
     borderRadius: 20,
   },
   centerText: {
-    textAlign: 'center',
+    textAlign: "center",
   },
   h1: {
     fontSize: 20,
   },
   whiteText: {
-    color: '#fff',
+    color: "#fff",
   },
 });
