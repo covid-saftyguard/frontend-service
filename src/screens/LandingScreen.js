@@ -42,6 +42,7 @@ export default function LandingScreen({ navigation, route }) {
           .signInWithCredential(credential)
           .then((data) => {
             const token = data.user.stsTokenManager.accessToken;
+            console.log(data.user.stsTokenManager);
             AsyncStorage.setItem("token", token);
             console.log(token);
             // console.log("SUCCESS:", data);

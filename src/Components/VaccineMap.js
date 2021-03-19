@@ -35,8 +35,9 @@ function VaccineMap() {
     fetchVaccineLocations();
   }, []);
 
-  const fetchVaccineLocations = () => {
-    const token = AsyncStorage.getItem("token");
+  const fetchVaccineLocations = async () => {
+    const token = await AsyncStorage.getItem("token");
+    console.log("this is the token", token);
     fetch(
       `http://ec2-18-216-242-223.us-east-2.compute.amazonaws.com/api/vaccine/location?lat=${region.latitude}&lon=${region.longitude}`,
       {

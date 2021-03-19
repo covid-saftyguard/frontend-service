@@ -20,7 +20,7 @@ if (!firebase.apps.length) {
 
 export const MainTabNavigator = () => (
   <Tab.Navigator>
-    <Tab.Screen name="VaccineMap" component={VaccineMap} options={{}} />
+    {/* <Tab.Screen name="VaccineMap" component={VaccineMap} options={{}} /> */}
     <Tab.Screen
       name="Home"
       component={Home}
