@@ -40,7 +40,7 @@ function VaccineMap() {
   const fetchVaccineLocations = async () => {
     // const token = await AsyncStorage.getItem("token");
     const token =
-      "eyJhbGciOiJSUzI1NiIsImtpZCI6IjRlMDBlOGZlNWYyYzg4Y2YwYzcwNDRmMzA3ZjdlNzM5Nzg4ZTRmMWUiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vY292aWQtc2FmZWd1YXJkLTAiLCJhdWQiOiJjb3ZpZC1zYWZlZ3VhcmQtMCIsImF1dGhfdGltZSI6MTYxNjEyNTU2MiwidXNlcl9pZCI6Ik1ib1BjTnVrWjRNRDk5VXhaT3VmcXc2Qzc3ejEiLCJzdWIiOiJNYm9QY051a1o0TUQ5OVV4Wk91ZnF3NkM3N3oxIiwiaWF0IjoxNjE2MTI1NTYyLCJleHAiOjE2MTYxMjkxNjIsImVtYWlsIjoiYWRtaW5AYWRtaW4uY29tIiwiZW1haWxfdmVyaWZpZWQiOmZhbHNlLCJmaXJlYmFzZSI6eyJpZGVudGl0aWVzIjp7ImVtYWlsIjpbImFkbWluQGFkbWluLmNvbSJdfSwic2lnbl9pbl9wcm92aWRlciI6InBhc3N3b3JkIn19.UGcqXFgfLT8-ah9yTrjGn-Xdk6vAR4QtI9G6cpKW9amNfEuvO_LgvHSdkqfXdu3FHq3m-_KdBlt095xZ2SL68trSt6qYCcwKcP_fGf4oX8q6Bj2IkMjHoHSNR-sFCJsVBwKKIrUpunw9jpGs0ZhD-fTOzUGs49gZ4AasKe5jKpPt_oKLcR6JvQwyeBFI2blmPWR1RjqMcTT-GZ2Cm1rxo_dMFxCHW8nxzIyIwVbPC7qh5vYzpllRBaYl7ezyZ5VUIQCZpYOPs5J6sT3WOg0_UaFMn8MfnbNGRWCnJ6EEQkjeclWElXoAtclHrBMtijKBtu-1ohWhKTDsOuDH6_ZKOw";
+      "eyJhbGciOiJSUzI1NiIsImtpZCI6IjRlMDBlOGZlNWYyYzg4Y2YwYzcwNDRmMzA3ZjdlNzM5Nzg4ZTRmMWUiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vY292aWQtc2FmZWd1YXJkLTAiLCJhdWQiOiJjb3ZpZC1zYWZlZ3VhcmQtMCIsImF1dGhfdGltZSI6MTYxNjE2NDI1MiwidXNlcl9pZCI6Ik1ib1BjTnVrWjRNRDk5VXhaT3VmcXc2Qzc3ejEiLCJzdWIiOiJNYm9QY051a1o0TUQ5OVV4Wk91ZnF3NkM3N3oxIiwiaWF0IjoxNjE2MTY0MjUyLCJleHAiOjE2MTYxNjc4NTIsImVtYWlsIjoiYWRtaW5AYWRtaW4uY29tIiwiZW1haWxfdmVyaWZpZWQiOmZhbHNlLCJmaXJlYmFzZSI6eyJpZGVudGl0aWVzIjp7ImVtYWlsIjpbImFkbWluQGFkbWluLmNvbSJdfSwic2lnbl9pbl9wcm92aWRlciI6InBhc3N3b3JkIn19.QMDEjdNPsMj_6EZEBlrOwbmrm99r8-dyVE3JtJAqKKok0TrMkYZeSsgP2_w7CvjD_DEbios7vGj9ucMRxkOaxLd9vr3arlkQ3nTaHXQborypJgEw_I4rFeJUnAVaqY_jBshCr_wzmEddwhXkvvaqH_I0ev6lP9imFTKcq8myYBJoqARGzqNbgGykwPpb_lJ8HrjKyQoX9_tVNNQ27QJZA7snu8s4n1kFrgYQw86G92M41BtC26Y435C_5BwguZahRqi9Rkl0ZHX5n-REvSrKv35K1hzWin9XqruIrCL-ZCiUfEgey56qv2NcDgQglYgOnPxdVRu65E3uJvMEs4ANfw";
     console.log("this is the token", token);
     fetch(
       `http://ec2-18-216-242-223.us-east-2.compute.amazonaws.com/api/vaccine/location?lat=${region.latitude}&lon=${region.longitude}`,
@@ -85,7 +85,7 @@ function VaccineMap() {
               // image={require("./assets/map_marker.png")}
             />
 
-            {/* {location.map((place) => (
+            {location.map((place) => (
               <Marker
                 key={place.id}
                 coordinate={{ latitude: place.lat, longitude: place.long }}
@@ -110,7 +110,7 @@ function VaccineMap() {
                   </View>
                 </Callout>
               </Marker>
-            ))} */}
+            ))}
           </MapView>
         ) : (
           <ActivityIndicator />

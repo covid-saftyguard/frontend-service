@@ -62,7 +62,7 @@ export default function Home({ navigation }) {
             <ActivityIndicator />
           )}
         </View>
-        <View style={styles.container}>
+        <View style={{ ...styles.container, backgroundColor: "#00DB4C" }}>
           <Text style={styles.h3}>Vaccines</Text>
           <Text style={styles.h1}>1719</Text>
         </View>
