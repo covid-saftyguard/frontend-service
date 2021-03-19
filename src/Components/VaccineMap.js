@@ -85,7 +85,7 @@ function VaccineMap() {
               // image={require("./assets/map_marker.png")}
             />
 
-            {location.map((place) => (
+            {/* {location.map((place) => (
               <Marker
                 key={place.id}
                 coordinate={{ latitude: place.lat, longitude: place.long }}
@@ -110,7 +110,7 @@ function VaccineMap() {
                   </View>
                 </Callout>
               </Marker>
-            ))}
+            ))} */}
           </MapView>
         ) : (
           <ActivityIndicator />
