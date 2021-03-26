@@ -32,16 +32,12 @@ function VaccineMap() {
         });
       },
       (error) => setRegion({ error: error.message }),
-      { enableHighAccuracy: true, timeout: 20000, maximumAge: 2000 }
+      { enableHighAccuracy: true, timeout: 1000, maximumAge: 2000 }
     );
     fetchVaccineLocations();
-  }, []);
+  }, [location]);
 
   const fetchVaccineLocations = () => {
-    // const token = await AsyncStorage.getItem("token");
-    // const token =
-    //   "eyJhbGciOiJSUzI1NiIsImtpZCI6IjRlMDBlOGZlNWYyYzg4Y2YwYzcwNDRmMzA3ZjdlNzM5Nzg4ZTRmMWUiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vY292aWQtc2FmZWd1YXJkLTAiLCJhdWQiOiJjb3ZpZC1zYWZlZ3VhcmQtMCIsImF1dGhfdGltZSI6MTYxNjE2NTUxOCwidXNlcl9pZCI6Ik1ib1BjTnVrWjRNRDk5VXhaT3VmcXc2Qzc3ejEiLCJzdWIiOiJNYm9QY051a1o0TUQ5OVV4Wk91ZnF3NkM3N3oxIiwiaWF0IjoxNjE2MTY1NTE4LCJleHAiOjE2MTYxNjkxMTgsImVtYWlsIjoiYWRtaW5AYWRtaW4uY29tIiwiZW1haWxfdmVyaWZpZWQiOmZhbHNlLCJmaXJlYmFzZSI6eyJpZGVudGl0aWVzIjp7ImVtYWlsIjpbImFkbWluQGFkbWluLmNvbSJdfSwic2lnbl9pbl9wcm92aWRlciI6InBhc3N3b3JkIn19.oHDmP1-VFxc2LwxdYffuV-tBXT9xy1hFLXQglz_scdAwUSc6rQNbM-haoNetH3E2AcdkfJUKJP50g6XFLTb4ZfUIqlMCRildu-nOHWY9hWiZ-M-Khs-me1-wJTDz1uA6LyBK0HHqpjlZfOChP6CJHwSQ04ch8D1NDWoW40l86yuXaHY5Dn8Du65VqtfX_XFxifKyC1VtLdotiVMlofTjCevtS6xGwDomRHG9Owa1fgplJgq_cyYHiGUE2pqnbn-eZ7OdmesruhROkhBLx3_4HXj0uEmQny9-dUHlTXu08WbyfZeG6E99AAtWdGQt06OEZ2xqQs955VMeP7xkNYYypw";
-    // console.log("this is the token", token);
     fetch(
       `http://ec2-18-216-242-223.us-east-2.compute.amazonaws.com/api/vaccine/location?lat=${region.latitude}&lon=${region.longitude}`,
       // "http://ec2-18-216-242-223.us-east-2.compute.amazonaws.com/api/vaccine/location?lat=37.785834&lon=-122.406417",
@@ -55,7 +51,7 @@ function VaccineMap() {
     )
       .then((response) => response.json())
       .then((data) => {
-        console.log('map data:', data);
+        // console.log('map data:', data);
         setLocation(data);
       })
       .catch((error) => {
@@ -63,19 +59,25 @@ function VaccineMap() {
       });
   };
 
-  console.log('latitude:', region.latitude);
-  console.log('longitude:', region.longitude);
-
   console.log('this is the data', location);
+
+  // console.log('latitude:', region.latitude);
+  // console.log('longitude:', region.longitude);
+
   // let vaccinePlaces = location.filter((place, index) => {
   //   return location.indexOf(place) === index;
   // });
+
+  // const token = await AsyncStorage.getItem("token");
+  // const token =
+  //   "eyJhbGciOiJSUzI1NiIsImtpZCI6IjRlMDBlOGZlNWYyYzg4Y2YwYzcwNDRmMzA3ZjdlNzM5Nzg4ZTRmMWUiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vY292aWQtc2FmZWd1YXJkLTAiLCJhdWQiOiJjb3ZpZC1zYWZlZ3VhcmQtMCIsImF1dGhfdGltZSI6MTYxNjE2NTUxOCwidXNlcl9pZCI6Ik1ib1BjTnVrWjRNRDk5VXhaT3VmcXc2Qzc3ejEiLCJzdWIiOiJNYm9QY051a1o0TUQ5OVV4Wk91ZnF3NkM3N3oxIiwiaWF0IjoxNjE2MTY1NTE4LCJleHAiOjE2MTYxNjkxMTgsImVtYWlsIjoiYWRtaW5AYWRtaW4uY29tIiwiZW1haWxfdmVyaWZpZWQiOmZhbHNlLCJmaXJlYmFzZSI6eyJpZGVudGl0aWVzIjp7ImVtYWlsIjpbImFkbWluQGFkbWluLmNvbSJdfSwic2lnbl9pbl9wcm92aWRlciI6InBhc3N3b3JkIn19.oHDmP1-VFxc2LwxdYffuV-tBXT9xy1hFLXQglz_scdAwUSc6rQNbM-haoNetH3E2AcdkfJUKJP50g6XFLTb4ZfUIqlMCRildu-nOHWY9hWiZ-M-Khs-me1-wJTDz1uA6LyBK0HHqpjlZfOChP6CJHwSQ04ch8D1NDWoW40l86yuXaHY5Dn8Du65VqtfX_XFxifKyC1VtLdotiVMlofTjCevtS6xGwDomRHG9Owa1fgplJgq_cyYHiGUE2pqnbn-eZ7OdmesruhROkhBLx3_4HXj0uEmQny9-dUHlTXu08WbyfZeG6E99AAtWdGQt06OEZ2xqQs955VMeP7xkNYYypw";
+  // console.log("this is the token", token);
 
   return (
     <ScrollView style={styles.scrollView}>
       <View style={styles.container}>
         <Text style={{ ...styles.title, marginTop: -80 }}>Map</Text>
-        {location ? (
+        {location.length != 0 ? (
           <MapView
             style={styles.map}
             region={{
