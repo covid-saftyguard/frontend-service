@@ -36,7 +36,8 @@ function VaccineMap() {
   }, []);
 
   const fetchVaccineLocations = async () => {
-    const token = await AsyncStorage.getItem("token");
+    const token =
+      "eyJhbGciOiJSUzI1NiIsImtpZCI6IjRlMDBlOGZlNWYyYzg4Y2YwYzcwNDRmMzA3ZjdlNzM5Nzg4ZTRmMWUiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vY292aWQtc2FmZWd1YXJkLTAiLCJhdWQiOiJjb3ZpZC1zYWZlZ3VhcmQtMCIsImF1dGhfdGltZSI6MTYxNjMwMDYwOSwidXNlcl9pZCI6Ik1ib1BjTnVrWjRNRDk5VXhaT3VmcXc2Qzc3ejEiLCJzdWIiOiJNYm9QY051a1o0TUQ5OVV4Wk91ZnF3NkM3N3oxIiwiaWF0IjoxNjE2MzAwNjA5LCJleHAiOjE2MTYzMDQyMDksImVtYWlsIjoiYWRtaW5AYWRtaW4uY29tIiwiZW1haWxfdmVyaWZpZWQiOmZhbHNlLCJmaXJlYmFzZSI6eyJpZGVudGl0aWVzIjp7ImVtYWlsIjpbImFkbWluQGFkbWluLmNvbSJdfSwic2lnbl9pbl9wcm92aWRlciI6InBhc3N3b3JkIn19.boaw3AfbgedO8tOfTfBbIHa3S06Yh9p18JBDSJdEPQpILT2n9Iy637hYO3_SajcqncGVoUtH_Ua5qCvvgsO3xUI6IsSm7y6wSl9dPff6vy6v3sGvLLR4-uQ7C12EF9Ohfquuac8cm023xHs6yo5Xkor8NDgtkZgG51dkwTwvwJrnldRQTEC1eqKK67oiAa42WNNy8TN-cd1H1WIrTOyh8Udjdbh9i8ViyQhxpzYC0p9MdYDmAH7CBbH2-GBAG7ltLowXN2Kffsw95qtf-EBqj3qgwbWGQSjuMpH97Vw3dPoylMU91WLFQdx7rBvFlOx3yAtqqMr2i-fo6V3Bo-eSwA";
     console.log("this is the token", token);
     fetch(
       `http://ec2-18-216-242-223.us-east-2.compute.amazonaws.com/api/vaccine/location?lat=${region.latitude}&lon=${region.longitude}`,
