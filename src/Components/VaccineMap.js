@@ -34,7 +34,10 @@ function VaccineMap() {
       (error) => setRegion({ error: error.message }),
       { enableHighAccuracy: true, timeout: 1000, maximumAge: 2000 }
     );
-    fetchVaccineLocations();
+    const timer = setTimeout(() => {
+      fetchVaccineLocations();
+    }, 60000);
+    return () => clearTimeout(timer);
   }, [location]);
 
   const fetchVaccineLocations = () => {
@@ -189,6 +192,44 @@ function VaccineMap() {
             </ScrollView>
           </View>
         </View>
+        <View>
+          <Text style={styles.title}> Eligibility</Text>
+          <View style={styles.sideEffectsContainer2}>
+            <View style={styles.sideEffects2}>
+              <Text>
+                {" "}
+                CDC recommends giving COVID-19 vaccine in phases, which may
+                overlap
+              </Text>
+              <Text>
+                {" "}
+                **Check your local and state news to see which priority group
+                phase your area is in.{" "}
+              </Text>
+              <Unorderedlist style={styles.sideEffectsOL}>
+                <Text>
+                  {" "}
+                  1a: Healthcare personnel and Long-term care facility residents
+                </Text>
+              </Unorderedlist>
+
+              <Unorderedlist style={styles.sideEffectsOL}>
+                <Text>
+                  {" "}
+                  1b: Frontline essential workers and People age 75 years and
+                  older
+                </Text>
+              </Unorderedlist>
+              <Unorderedlist style={styles.sideEffectsOL}>
+                <Text>
+                  1c: People aged 65 through 74 years and People aged 16 through
+                  64 years with underlying medical conditions and Other
+                  essential workers
+                </Text>
+              </Unorderedlist>
+            </View>
+          </View>
+        </View>
       </View>
     </ScrollView>
   );
@@ -275,6 +316,20 @@ const styles = StyleSheet.create({
     margin: "3%",
     borderRadius: 40,
     backgroundColor: "#F8F8F8",
+    maxHeight: "auto",
+  },
+  sideEffectsContainer2: {
+    marginTop: 30,
+    display: "flex",
+    // flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+    width: "90%",
+    height: "50%",
+    margin: "3%",
+    borderRadius: 40,
+    backgroundColor: "#F8F8F8",
+    maxHeight: "auto",
   },
   title: {
     display: "flex",
@@ -287,6 +342,12 @@ const styles = StyleSheet.create({
   sideEffects: {
     // width: "90%",
     // height: "30%",
+    paddingTop: 20,
+    paddingRight: 10,
+    paddingLeft: 10,
+    flexDirection: "column",
+  },
+  sideEffects2: {
     paddingTop: 20,
     paddingRight: 10,
     paddingLeft: 10,
