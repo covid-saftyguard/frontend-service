@@ -20,7 +20,6 @@ if (!firebase.apps.length) {
 
 export const MainTabNavigator = () => (
   <Tab.Navigator>
-    <Tab.Screen name="VaccineMap" component={VaccineMap} options={{}} />
     <Tab.Screen
       name="Home"
       component={Home}
@@ -36,17 +35,32 @@ export const MainTabNavigator = () => (
         tabBarColor: "white",
       }}
     />
+    <Tab.Screen
+      name="VaccineMap"
+      component={VaccineMap}
+      options={{
+        tabBarLabel: "",
+        tabBarIcon: () => (
+          <MaterialIcons
+            style={{ color: "#548CD6", marginTop: 30, height: 40 }}
+            name="map"
+            size={40}
+          />
+        ),
+        tabBarColor: "white",
+      }}
+    />
   </Tab.Navigator>
 );
 
 export default function LandingStack() {
   return (
-    <Stack.Navigator initialRouteName="Landing">
+    <Stack.Navigator headerMode="screen" initialRouteName="Landing">
       <Stack.Screen
         name="Landing"
         component={LandingScreen}
         options={{
-          // header: () => null,
+          header: () => null,
           title: null,
           headerStyle: { borderColor: "white" },
           cardStyle: { backgroundColor: "#fff" },

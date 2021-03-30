@@ -6,14 +6,16 @@ import {
   ScrollView,
   Dimensions,
   ActivityIndicator,
+  Image,
 } from "react-native";
 import MapView, { AnimatedRegion, Marker, Callout } from "react-native-maps";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import vaccine_marker from "./assets/vaccine_marker.png";
 import Unorderedlist from "react-native-unordered-list";
+import armInjection from "../../assets/arm-injection.png";
 
 function VaccineMap() {
-  const [location, setLocation] = useState(null);
+  const [location, setLocation] = useState([]);
   const [region, setRegion] = useState({
     latitude: 0,
     longitude: 0,
@@ -30,41 +32,52 @@ function VaccineMap() {
         });
       },
       (error) => setRegion({ error: error.message }),
-      { enableHighAccuracy: true, timeout: 20000, maximumAge: 2000 }
+      { enableHighAccuracy: true, timeout: 1000, maximumAge: 2000 }
     );
     fetchVaccineLocations();
-  }, []);
+  }, [location]);
 
-  const fetchVaccineLocations = async () => {
-    const token =
-      "eyJhbGciOiJSUzI1NiIsImtpZCI6IjRlMDBlOGZlNWYyYzg4Y2YwYzcwNDRmMzA3ZjdlNzM5Nzg4ZTRmMWUiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vY292aWQtc2FmZWd1YXJkLTAiLCJhdWQiOiJjb3ZpZC1zYWZlZ3VhcmQtMCIsImF1dGhfdGltZSI6MTYxNjMwMDYwOSwidXNlcl9pZCI6Ik1ib1BjTnVrWjRNRDk5VXhaT3VmcXc2Qzc3ejEiLCJzdWIiOiJNYm9QY051a1o0TUQ5OVV4Wk91ZnF3NkM3N3oxIiwiaWF0IjoxNjE2MzAwNjA5LCJleHAiOjE2MTYzMDQyMDksImVtYWlsIjoiYWRtaW5AYWRtaW4uY29tIiwiZW1haWxfdmVyaWZpZWQiOmZhbHNlLCJmaXJlYmFzZSI6eyJpZGVudGl0aWVzIjp7ImVtYWlsIjpbImFkbWluQGFkbWluLmNvbSJdfSwic2lnbl9pbl9wcm92aWRlciI6InBhc3N3b3JkIn19.boaw3AfbgedO8tOfTfBbIHa3S06Yh9p18JBDSJdEPQpILT2n9Iy637hYO3_SajcqncGVoUtH_Ua5qCvvgsO3xUI6IsSm7y6wSl9dPff6vy6v3sGvLLR4-uQ7C12EF9Ohfquuac8cm023xHs6yo5Xkor8NDgtkZgG51dkwTwvwJrnldRQTEC1eqKK67oiAa42WNNy8TN-cd1H1WIrTOyh8Udjdbh9i8ViyQhxpzYC0p9MdYDmAH7CBbH2-GBAG7ltLowXN2Kffsw95qtf-EBqj3qgwbWGQSjuMpH97Vw3dPoylMU91WLFQdx7rBvFlOx3yAtqqMr2i-fo6V3Bo-eSwA";
-    console.log("this is the token", token);
+  const fetchVaccineLocations = () => {
     fetch(
       `http://ec2-18-216-242-223.us-east-2.compute.amazonaws.com/api/vaccine/location?lat=${region.latitude}&lon=${region.longitude}`,
+      // "http://ec2-18-216-242-223.us-east-2.compute.amazonaws.com/api/vaccine/location?lat=37.785834&lon=-122.406417",
       {
         method: "GET",
         headers: {
           Accept: "application/json",
-          Authorization: `Bearer ${token}`,
+          // Authorization: `Bearer ${token}`,
         },
       }
     )
       .then((response) => response.json())
-      .then((data) => setLocation(data))
+      .then((data) => {
+        // console.log('map data:', data);
+        setLocation(data);
+      })
       .catch((error) => {
         console.error(error);
       });
   };
 
   console.log("this is the data", location);
+
+  // console.log('latitude:', region.latitude);
+  // console.log('longitude:', region.longitude);
+
   // let vaccinePlaces = location.filter((place, index) => {
   //   return location.indexOf(place) === index;
   // });
 
+  // const token = await AsyncStorage.getItem("token");
+  // const token =
+  //   "eyJhbGciOiJSUzI1NiIsImtpZCI6IjRlMDBlOGZlNWYyYzg4Y2YwYzcwNDRmMzA3ZjdlNzM5Nzg4ZTRmMWUiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vY292aWQtc2FmZWd1YXJkLTAiLCJhdWQiOiJjb3ZpZC1zYWZlZ3VhcmQtMCIsImF1dGhfdGltZSI6MTYxNjE2NTUxOCwidXNlcl9pZCI6Ik1ib1BjTnVrWjRNRDk5VXhaT3VmcXc2Qzc3ejEiLCJzdWIiOiJNYm9QY051a1o0TUQ5OVV4Wk91ZnF3NkM3N3oxIiwiaWF0IjoxNjE2MTY1NTE4LCJleHAiOjE2MTYxNjkxMTgsImVtYWlsIjoiYWRtaW5AYWRtaW4uY29tIiwiZW1haWxfdmVyaWZpZWQiOmZhbHNlLCJmaXJlYmFzZSI6eyJpZGVudGl0aWVzIjp7ImVtYWlsIjpbImFkbWluQGFkbWluLmNvbSJdfSwic2lnbl9pbl9wcm92aWRlciI6InBhc3N3b3JkIn19.oHDmP1-VFxc2LwxdYffuV-tBXT9xy1hFLXQglz_scdAwUSc6rQNbM-haoNetH3E2AcdkfJUKJP50g6XFLTb4ZfUIqlMCRildu-nOHWY9hWiZ-M-Khs-me1-wJTDz1uA6LyBK0HHqpjlZfOChP6CJHwSQ04ch8D1NDWoW40l86yuXaHY5Dn8Du65VqtfX_XFxifKyC1VtLdotiVMlofTjCevtS6xGwDomRHG9Owa1fgplJgq_cyYHiGUE2pqnbn-eZ7OdmesruhROkhBLx3_4HXj0uEmQny9-dUHlTXu08WbyfZeG6E99AAtWdGQt06OEZ2xqQs955VMeP7xkNYYypw";
+  // console.log("this is the token", token);
+
   return (
     <ScrollView style={styles.scrollView}>
       <View style={styles.container}>
-        {location ? (
+        <Text style={{ ...styles.title, marginTop: -80 }}>Map</Text>
+        {location.length != 0 ? (
           <MapView
             style={styles.map}
             region={{
@@ -81,70 +94,97 @@ function VaccineMap() {
               // image={require("./assets/map_marker.png")}
             />
 
-            {location.map((place) => (
-              <Marker
-                key={place.id}
-                coordinate={{ latitude: place.lat, longitude: place.long }}
-                image={require("./assets/map_marker.png")}
-              >
-                <Callout tooltip>
-                  <View>
-                    <View style={styles.bubble}>
-                      <Text style={styles.name}>{place.name}</Text>
-                      <Text style={styles.name}>{place.address1}</Text>
-                      <Text style={styles.name}>
-                        {place.city}, {place.state} {place.zip}{" "}
-                      </Text>
-                      <Text style={styles.name}>{place.phone}</Text>
-                      <Text style={styles.name}>
-                        {" "}
-                        vaccines in stock?: {place.in_stock ? "yes" : "no"}
-                      </Text>
+            {location &&
+              location.map((place) => (
+                <Marker
+                  key={place.id}
+                  coordinate={{ latitude: place.lat, longitude: place.long }}
+                  image={require("./assets/map_marker.png")}
+                >
+                  <Callout tooltip>
+                    <View>
+                      <View style={styles.bubble}>
+                        <Text style={styles.name}>{place.name}</Text>
+                        <Text style={styles.name}>{place.address1}</Text>
+                        <Text style={styles.name}>
+                          {place.city}, {place.state} {place.zip}{" "}
+                        </Text>
+                        <Text style={styles.name}>{place.phone}</Text>
+                        <Text style={styles.name}>
+                          {" "}
+                          vaccines in stock?: {place.in_stock ? "yes" : "no"}
+                        </Text>
+                      </View>
+                      <View style={styles.arrowBorder} />
+                      <View style={styles.arrow} />
                     </View>
-                    <View style={styles.arrowBorder} />
-                    <View style={styles.arrow} />
-                  </View>
-                </Callout>
-              </Marker>
-            ))}
+                  </Callout>
+                </Marker>
+              ))}
           </MapView>
         ) : (
           <ActivityIndicator />
         )}
+        <Text style={styles.title}>Side Effects</Text>
         <View style={styles.sideEffectsContainer}>
-          <Text style={styles.title}>Side Effects</Text>
+          {/* <View style={{ flexDirection: "row" }}>
+            <Image style={styles.img} source={armInjection} />
+          </View> */}
           <View style={styles.sideEffects}>
             {/* <Text> Pain, Redness, Swelling</Text> */}
             <ScrollView nestedScrollEnabled={true}>
-              <Text>On the arm after the shot:</Text>
-              <Unorderedlist>
+              <Text style={styles.sideEffectsText}>
+                On the arm after the shot:
+              </Text>
+              <Unorderedlist style={styles.sideEffectsOL}>
                 <Text>Pain</Text>
               </Unorderedlist>
-              <Unorderedlist>
+              <Unorderedlist style={styles.sideEffectsOL}>
                 <Text>Redness</Text>
               </Unorderedlist>
-              <Unorderedlist>
+              <Unorderedlist style={styles.sideEffectsOL}>
                 <Text>Swelling</Text>
               </Unorderedlist>
-              <Text>Throughout the rest of your body:</Text>
+              {/* style solutions */}
+              <Text style={styles.sideEffectsText}>
+                To reduce pain and discomfort where you got the shot:
+              </Text>
+              <Unorderedlist style={styles.sideEffectsOL}>
+                <Text>Apply a clean, cool, wet washcloth over the area.</Text>
+              </Unorderedlist>
+              <Unorderedlist style={styles.sideEffectsOL}>
+                <Text>Use or exercise your arm.</Text>
+              </Unorderedlist>
+              <Text style={styles.sideEffectsText}>
+                Throughout the rest of your body:
+              </Text>
               {/* <Text>Tiredness, Headache, Muscle pain, Chills, Fever, Nausea</Text> */}
-              <Unorderedlist>
+              <Unorderedlist style={styles.sideEffectsOL}>
                 <Text>Tiredness</Text>
               </Unorderedlist>
-              <Unorderedlist>
+              <Unorderedlist style={styles.sideEffectsOL}>
                 <Text>Headache</Text>
               </Unorderedlist>
-              <Unorderedlist>
+              <Unorderedlist style={styles.sideEffectsOL}>
                 <Text>Muscle pain</Text>
               </Unorderedlist>
-              <Unorderedlist>
+              <Unorderedlist style={styles.sideEffectsOL}>
                 <Text>Chills</Text>
               </Unorderedlist>
-              <Unorderedlist>
+              <Unorderedlist style={styles.sideEffectsOL}>
                 <Text>Fever</Text>
               </Unorderedlist>
-              <Unorderedlist>
+              <Unorderedlist style={styles.sideEffectsOL}>
                 <Text>Nausea</Text>
+              </Unorderedlist>
+              <Text style={styles.sideEffectsText}>
+                To reduce discomfort from fever:
+              </Text>
+              <Unorderedlist style={styles.sideEffectsOL}>
+                <Text>Drink plenty of fluids.</Text>
+              </Unorderedlist>
+              <Unorderedlist style={styles.sideEffectsOL}>
+                <Text>Dress lightly.</Text>
               </Unorderedlist>
             </ScrollView>
           </View>
@@ -210,46 +250,64 @@ const styles = StyleSheet.create({
   },
   container: {
     marginTop: "15%",
-    marginBottom: "60%",
+    marginBottom: -100,
     // display: "flex",
     // backgroundColor: "blue",
     alignItems: "center",
     justifyContent: "center",
-    paddingTop: "10%",
+    // paddingTop: "10%",
   },
   map: {
-    width: 300,
-    height: 300,
+    marginTop: 10,
+    marginBottom: 30,
+    width: 400,
+    height: 350,
+    borderRadius: 40,
   },
   sideEffectsContainer: {
+    marginTop: 30,
     display: "flex",
-    flexDirection: "row",
+    // flexDirection: "row",
+    alignItems: "center",
     justifyContent: "center",
-    alignItems: "flex-start",
-    borderColor: "pink",
-    borderWidth: 1,
     width: "90%",
     height: "50%",
-    borderStyle: "solid",
     margin: "3%",
-    borderRadius: 10,
+    borderRadius: 40,
+    backgroundColor: "#F8F8F8",
   },
   title: {
     display: "flex",
     justifyContent: "center",
-    alignItems: "flex-start",
-    padding: 10,
-    position: "absolute",
+    // padding: 10,
+    // position: "absolute",
+    fontSize: 35,
+    fontWeight: "900",
   },
   sideEffects: {
     // width: "90%",
     // height: "30%",
-    display: "flex",
-    paddingTop: 50,
+    paddingTop: 20,
     paddingRight: 10,
     paddingLeft: 10,
     flexDirection: "column",
-    alignItems: "flex-end",
+  },
+  sideEffectsText: {
+    fontSize: 18,
+    marginBottom: 15,
+    marginTop: 20,
+    fontWeight: "600",
+  },
+  sideEffectsOL: {
+    marginLeft: 30,
+    fontSize: 25,
+    fontWeight: "500",
+  },
+  img: {
+    marginTop: 25,
+    height: 80,
+    width: 80,
+    borderRadius: 100,
   },
   // dosage: {
   //   display: "flex",
