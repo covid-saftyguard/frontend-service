@@ -43,7 +43,7 @@ function VaccineMap() {
     );
     const timer = setTimeout(() => {
       fetchVaccineLocations();
-    }, 60000);
+    }, 44000);
     return () => clearTimeout(timer);
   }, [location]);
 
@@ -106,79 +106,76 @@ function VaccineMap() {
     <ScrollView style={styles.scrollView}>
       <View style={styles.container}>
         <Text style={{ ...styles.title, marginTop: -80 }}>Map</Text>
-        {location.length != 0 ? (
-          <MapView
-            style={styles.map}
-            region={{
-              latitude: region.latitude,
-              longitude: region.longitude,
-              latitudeDelta: 0.05,
-              longitudeDelta: 0.05,
-            }}
-            // onRegionChangeComplete={(region) => setRegion(region)}
-          >
-            <Marker
-              style={styles.home}
-              coordinate={region}
-              // image={require("./assets/map_marker.png")}
-            />
 
-            {location &&
-              location.map((place) => (
-                <Marker
-                  key={place.id}
-                  coordinate={{ latitude: place.lat, longitude: place.long }}
-                  image={require("./assets/map_marker.png")}
-                >
-                  <Callout tooltip>
-                    <View>
-                      <View style={styles.bubble}>
-                        <Text style={styles.name}>{place.name}</Text>
-                        <Text style={styles.name}>{place.address1}</Text>
-                        <Text style={styles.name}>
-                          {place.city}, {place.state} {place.zip}{" "}
+        <MapView
+          style={styles.map}
+          region={{
+            latitude: region.latitude,
+            longitude: region.longitude,
+            latitudeDelta: 0.05,
+            longitudeDelta: 0.05,
+          }}
+          // onRegionChangeComplete={(region) => setRegion(region)}
+        >
+          <Marker
+            style={styles.home}
+            coordinate={region}
+            // image={require("./assets/map_marker.png")}
+          />
+          {location.length != 0 ? (
+            location.map((place) => (
+              <Marker
+                key={place.id}
+                coordinate={{ latitude: place.lat, longitude: place.long }}
+                image={require("./assets/map_marker.png")}
+              >
+                <Callout tooltip>
+                  <View>
+                    <View style={styles.bubble}>
+                      <Text style={styles.name}>{place.name}</Text>
+                      <Text style={styles.name}>{place.address1}</Text>
+                      <Text style={styles.name}>
+                        {place.city}, {place.state} {place.zip}{" "}
+                      </Text>
+
+                      <CalloutSubview
+                        onPress={() => {
+                          Linking.openURL(`tel:${place.phone}`);
+                        }}
+                        hitSlop={{ left: 20, top: 20, right: 20, bottom: 20 }}
+                        style={{ zIndex: 99999 }}
+                      >
+                        <Text style={{ fontSize: 30, color: "blue" }}>
+                          {place.phone}
                         </Text>
+                      </CalloutSubview>
 
-                        <CalloutSubview
-                          onPress={() => {
-                            Linking.openURL(`tel:${place.phone}`);
-                          }}
-                          hitSlop={{ left: 20, top: 20, right: 20, bottom: 20 }}
-                          style={{ zIndex: 99999 }}
-                        >
-                          <Text style={{ fontSize: 30, color: "blue" }}>
-                            {place.phone}
-                          </Text>
-                        </CalloutSubview>
+                      <CalloutSubview
+                        onPress={() => {
+                          getAddress(place);
+                        }}
+                        hitSlop={{ left: 20, top: 20, right: 20, bottom: 20 }}
+                        style={{ zIndex: 99999 }}
+                      >
+                        <Text style={{ fontSize: 35, color: "red" }}> Map</Text>
+                      </CalloutSubview>
 
-                        <CalloutSubview
-                          onPress={() => {
-                            getAddress(place);
-                          }}
-                          hitSlop={{ left: 20, top: 20, right: 20, bottom: 20 }}
-                          style={{ zIndex: 99999 }}
-                        >
-                          <Text style={{ fontSize: 35, color: "red" }}>
-                            {" "}
-                            Map
-                          </Text>
-                        </CalloutSubview>
-
-                        <Text style={styles.name}>
-                          {" "}
-                          vaccines in stock?: {place.in_stock ? "yes" : "no"}
-                        </Text>
-                      </View>
-                      <View style={styles.arrowBorder} />
-                      <View style={styles.arrow} />
+                      <Text style={styles.name}>
+                        {" "}
+                        vaccines in stock?: {place.in_stock ? "yes" : "no"}
+                      </Text>
                     </View>
-                  </Callout>
-                </Marker>
-              ))}
-          </MapView>
-        ) : (
-          <ActivityIndicator />
-        )}
+                    <View style={styles.arrowBorder} />
+                    <View style={styles.arrow} />
+                  </View>
+                </Callout>
+              </Marker>
+            ))
+          ) : (
+            <ActivityIndicator />
+          )}
+        </MapView>
+
         <Text style={styles.title}>Side Effects</Text>
         <View style={styles.sideEffectsContainer}>
           {/* <View style={{ flexDirection: "row" }}>
@@ -249,8 +246,8 @@ function VaccineMap() {
             <View style={styles.sideEffects2}>
               <Text>
                 {" "}
-                CDC recommends giving COVID-19 vaccine in phases, which may
-                overlap
+                CDC recommends giving the COVID-19 vaccine in phases, which may
+                overlap with eachother. 
               </Text>
               <Text>
                 {" "}
