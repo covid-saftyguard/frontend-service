@@ -7,12 +7,19 @@ import {
   Dimensions,
   ActivityIndicator,
   Image,
+  TouchableOpacity,
 } from "react-native";
-import MapView, { AnimatedRegion, Marker, Callout } from "react-native-maps";
+import MapView, {
+  AnimatedRegion,
+  Marker,
+  Callout,
+  CalloutSubview,
+} from "react-native-maps";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import vaccine_marker from "./assets/vaccine_marker.png";
 import Unorderedlist from "react-native-unordered-list";
 import armInjection from "../../assets/arm-injection.png";
+import { Linking, Alert, Platform } from "react-native";
 
 function VaccineMap() {
   const [location, setLocation] = useState([]);
@@ -62,8 +69,6 @@ function VaccineMap() {
       });
   };
 
-  console.log("this is the data", location);
-
   // console.log('latitude:', region.latitude);
   // console.log('longitude:', region.longitude);
 
@@ -75,6 +80,25 @@ function VaccineMap() {
   // const token =
   //   "eyJhbGciOiJSUzI1NiIsImtpZCI6IjRlMDBlOGZlNWYyYzg4Y2YwYzcwNDRmMzA3ZjdlNzM5Nzg4ZTRmMWUiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vY292aWQtc2FmZWd1YXJkLTAiLCJhdWQiOiJjb3ZpZC1zYWZlZ3VhcmQtMCIsImF1dGhfdGltZSI6MTYxNjE2NTUxOCwidXNlcl9pZCI6Ik1ib1BjTnVrWjRNRDk5VXhaT3VmcXc2Qzc3ejEiLCJzdWIiOiJNYm9QY051a1o0TUQ5OVV4Wk91ZnF3NkM3N3oxIiwiaWF0IjoxNjE2MTY1NTE4LCJleHAiOjE2MTYxNjkxMTgsImVtYWlsIjoiYWRtaW5AYWRtaW4uY29tIiwiZW1haWxfdmVyaWZpZWQiOmZhbHNlLCJmaXJlYmFzZSI6eyJpZGVudGl0aWVzIjp7ImVtYWlsIjpbImFkbWluQGFkbWluLmNvbSJdfSwic2lnbl9pbl9wcm92aWRlciI6InBhc3N3b3JkIn19.oHDmP1-VFxc2LwxdYffuV-tBXT9xy1hFLXQglz_scdAwUSc6rQNbM-haoNetH3E2AcdkfJUKJP50g6XFLTb4ZfUIqlMCRildu-nOHWY9hWiZ-M-Khs-me1-wJTDz1uA6LyBK0HHqpjlZfOChP6CJHwSQ04ch8D1NDWoW40l86yuXaHY5Dn8Du65VqtfX_XFxifKyC1VtLdotiVMlofTjCevtS6xGwDomRHG9Owa1fgplJgq_cyYHiGUE2pqnbn-eZ7OdmesruhROkhBLx3_4HXj0uEmQny9-dUHlTXu08WbyfZeG6E99AAtWdGQt06OEZ2xqQs955VMeP7xkNYYypw";
   // console.log("this is the token", token);
+
+  // const callNumber = (phone) => {
+  //   console.log("callNumber ----> ", phone);
+  //   let phoneNumber = phone;
+  //   if (Platform.OS !== "android") {
+  //     phoneNumber = `telprompt:${phone}`;
+  //   } else {
+  //     phoneNumber = `tel://${phone}`;
+  //   }
+  //   Linking.canOpenURL(phoneNumber)
+  //     .then((supported) => {
+  //       if (!supported) {
+  //         Alert.alert("Phone number is not available");
+  //       } else {
+  //         return Linking.openURL(`tel://${phoneNumber}`);
+  //       }
+  //     })
+  //     .catch((err) => console.log(err));
+  // };
 
   return (
     <ScrollView style={styles.scrollView}>
@@ -112,7 +136,19 @@ function VaccineMap() {
                         <Text style={styles.name}>
                           {place.city}, {place.state} {place.zip}{" "}
                         </Text>
-                        <Text style={styles.name}>{place.phone}</Text>
+
+                        <CalloutSubview
+                          onPress={() => {
+                            Linking.openURL(`tel:${place.phone}`);
+                          }}
+                          hitSlop={{ left: 20, top: 20, right: 20, bottom: 20 }}
+                          style={{ zIndex: 99999 }}
+                        >
+                          <Text style={{ fontSize: 30, color: "blue" }}>
+                            {place.phone}
+                          </Text>
+                        </CalloutSubview>
+
                         <Text style={styles.name}>
                           {" "}
                           vaccines in stock?: {place.in_stock ? "yes" : "no"}
@@ -192,7 +228,7 @@ function VaccineMap() {
             </ScrollView>
           </View>
         </View>
-        <View>
+        {/* <View>
           <Text style={styles.title}> Eligibility</Text>
           <View style={styles.sideEffectsContainer2}>
             <View style={styles.sideEffects2}>
@@ -229,13 +265,36 @@ function VaccineMap() {
               </Unorderedlist>
             </View>
           </View>
-        </View>
+        </View> */}
+        {/* <View>
+          <Text style={styles.title}> Appointments</Text>
+          <View style={styles.sideEffectsContainer2}>
+            <View style={styles.sideEffects2}>
+              <Text>
+                {" "}
+                Please call the location youre interested in setting up an
+                appointment with.{" "}
+              </Text>
+            </View>
+          </View> */}
+        {/* </View> */}
       </View>
     </ScrollView>
   );
 }
 
 const styles = StyleSheet.create({
+  button: {
+    width: "80%",
+    padding: 6,
+    backgroundColor: "#4130E6",
+    borderRadius: 7,
+  },
+  TextStyle: {
+    color: "#fff",
+    fontSize: 18,
+    textAlign: "center",
+  },
   scrollView: {
     height: Dimensions.get("screen").height,
     width: Dimensions.get("screen").width,
