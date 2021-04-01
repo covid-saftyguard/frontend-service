@@ -13,6 +13,7 @@ import SafetyTips from "../Components/SafetyTips";
 import Symptoms from "../Components/Symptoms";
 import Vaccines from "../Components/Vaccines";
 import firebase from "firebase";
+import Data from "../Data";
 
 function* yLabel() {
   yield* ["10M", "20M", "30M", "50M", "90M"];
@@ -20,8 +21,12 @@ function* yLabel() {
 
 export default function Home({ navigation }) {
   const [api, setApi] = useState([]);
+  const [chartData, setChartData] = useState([]);
+  const [date, setDate] = useState([]);
 
   const yLabelIterator = yLabel();
+  const chartCases = chartData.map((cases) => cases.positive);
+  const chartDates = chartData.map((api) => api.date);
 
   const logOut = async () => {
     try {
@@ -49,6 +54,17 @@ export default function Home({ navigation }) {
         setApi(data);
       });
   }, []);
+
+  function formatDate() {
+    let someDate = [];
+    let dateStr;
+    for (let i = 0; i < Data.length; i++) {
+      const date = Data[i].toString();
+      dateStr = date.replace(/\d\d(\d\d)(\d\d)(\d\d)/, "$2-$3-$1");
+      someDate.push(dateStr);
+      console.log("date str:", dateStr);
+    }
+  }
 
   return (
     <ScrollView>
@@ -87,22 +103,14 @@ export default function Home({ navigation }) {
           width: 400,
         }}
       >
-        <Text style={{ marginTop: 60 }}>COVID-19 Cases ( 7 Months )</Text>
+        <Text style={{ marginTop: 60 }}>COVID-19 Cases</Text>
         <LineChart
           // using dummy data for demo purposes
           data={{
             labels: ["Sep", "Oct", "Nov", "Dec", "Jan", "Feb", "Mar"],
             datasets: [
               {
-                data: [
-                  90000000,
-                  80000000,
-                  79000000,
-                  80000000,
-                  70000000,
-                  80000000,
-                  60000000,
-                ],
+                data: date,
               },
             ],
           }}
