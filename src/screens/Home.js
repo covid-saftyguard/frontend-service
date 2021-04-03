@@ -13,7 +13,7 @@ import SafetyTips from "../Components/SafetyTips";
 import Symptoms from "../Components/Symptoms";
 import Vaccines from "../Components/Vaccines";
 import firebase from "firebase";
-import Data from "../Data";
+import * as chartData from "../Data";
 
 function* yLabel() {
   yield* ["10M", "20M", "30M", "50M", "90M"];
@@ -21,12 +21,12 @@ function* yLabel() {
 
 export default function Home({ navigation }) {
   const [api, setApi] = useState([]);
-  const [chartData, setChartData] = useState([]);
-  const [date, setDate] = useState([]);
+  // const [chartData, setChartData] = useState([]);
+  // const [date, setDate] = useState([]);
 
   const yLabelIterator = yLabel();
-  const chartCases = chartData.map((cases) => cases.positive);
-  const chartDates = chartData.map((api) => api.date);
+  // const chartCases = chartData.map((cases) => cases.positive);
+  // const chartDates = chartData.map((api) => api.date);
 
   const logOut = async () => {
     try {
@@ -55,16 +55,19 @@ export default function Home({ navigation }) {
       });
   }, []);
 
-  function formatDate() {
-    let someDate = [];
+  const scaleData = (data) => {
     let dateStr;
-    for (let i = 0; i < Data.length; i++) {
-      const date = Data[i].toString();
+    for (let i = 0; i < chartData.Data.length; i++) {
+      const date = chartData.Data[i].date.toString();
       dateStr = date.replace(/\d\d(\d\d)(\d\d)(\d\d)/, "$2-$3-$1");
-      someDate.push(dateStr);
-      console.log("date str:", dateStr);
+
+      console.log("date:", date);
+      console.log("dateStr:", dateStr);
     }
-  }
+    return dateStr;
+  };
+
+  scaleData(chartData);
 
   return (
     <ScrollView>
@@ -110,7 +113,7 @@ export default function Home({ navigation }) {
             labels: ["Sep", "Oct", "Nov", "Dec", "Jan", "Feb", "Mar"],
             datasets: [
               {
-                data: date,
+                data: [0], // can't get imported json data to work here
               },
             ],
           }}

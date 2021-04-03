@@ -240,14 +240,14 @@ function VaccineMap() {
             </ScrollView>
           </View>
         </View>
-        {/* <View>
+        <View>
           <Text style={styles.title}> Eligibility</Text>
-          <View style={styles.sideEffectsContainer2}>
-            <View style={styles.sideEffects2}>
+          <View style={styles.sideEffectsContainer}>
+            <View style={styles.sideEffects}>
               <Text>
                 {" "}
                 CDC recommends giving the COVID-19 vaccine in phases, which may
-                overlap with eachother. 
+                overlap with eachother.
               </Text>
               <Text>
                 {" "}
@@ -277,19 +277,19 @@ function VaccineMap() {
               </Unorderedlist>
             </View>
           </View>
-        </View> */}
-        {/* <View>
+        </View>
+        <View>
           <Text style={styles.title}> Appointments</Text>
-          <View style={styles.sideEffectsContainer2}>
-            <View style={styles.sideEffects2}>
+          <View style={styles.sideEffectsContainer}>
+            <View style={styles.sideEffects}>
               <Text>
                 {" "}
                 Please call the location youre interested in setting up an
                 appointment with.{" "}
               </Text>
             </View>
-          </View> */}
-        {/* </View> */}
+          </View>
+        </View>
       </View>
     </ScrollView>
   );
@@ -361,8 +361,8 @@ const styles = StyleSheet.create({
     borderRadius: 5,
   },
   container: {
-    marginTop: "15%",
-    marginBottom: -100,
+    marginTop: 90,
+    marginBottom: -10,
     // display: "flex",
     // backgroundColor: "blue",
     alignItems: "center",
@@ -379,24 +379,11 @@ const styles = StyleSheet.create({
   sideEffectsContainer: {
     marginTop: 30,
     display: "flex",
-    // flexDirection: "row",
-    alignItems: "center",
+    flexDirection: "row",
+    // alignItems: "center",
     justifyContent: "center",
     width: "90%",
-    height: "50%",
-    margin: "3%",
-    borderRadius: 40,
-    backgroundColor: "#F8F8F8",
-    maxHeight: "auto",
-  },
-  sideEffectsContainer2: {
-    marginTop: 30,
-    display: "flex",
-    // flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "center",
-    width: "90%",
-    height: "50%",
+    height: 450,
     margin: "3%",
     borderRadius: 40,
     backgroundColor: "#F8F8F8",
@@ -413,12 +400,6 @@ const styles = StyleSheet.create({
   sideEffects: {
     // width: "90%",
     // height: "30%",
-    paddingTop: 20,
-    paddingRight: 10,
-    paddingLeft: 10,
-    flexDirection: "column",
-  },
-  sideEffects2: {
     paddingTop: 20,
     paddingRight: 10,
     paddingLeft: 10,
