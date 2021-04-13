@@ -20,7 +20,7 @@ protect and maintain healthy behaviors, COVID SafeGuard will keep you rest assur
    
    ## Authors 
    *  **Shevaughn Grant** 
-   *  **Jauvaughn Grant**
+   *  **Javaughn Grant**
    *  **Prajwal Premdas**
    *  **Laith L**
    *  **Crystal Villanueva**
